@@ -1,0 +1,25 @@
+/* pages/votetext/votetext.wxss */
+
+.topImg{
+    width: 100%;
+    height:90px;
+}
+
+.input{
+    border:solid black;
+}
+
+.rowFlex{
+    display:flex;
+    flex-direction: row;
+}
+
+.minusImg,.plusImg{
+    width:10%;
+    height: 30px;
+}
+
+.currentDT {
+    text-align: right;
+}
+

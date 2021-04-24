@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/my/my",
+    "pages/votetext/votetext",
+    "pages/votepic/votepic",
+    "pages/votevideo/votevideo",
+    "pages/votemuti/votemulti"
+  ], 
+
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "极简投票",
+    "navigationBarTextStyle": "black"
+  },
+
+  "tabBar": {
+    "color": "#00F",
+    "selectedColor": "#123",
+    "list": [
+      {
+      "pagePath": "pages/index/index",
+      "text": "投票",
+      "iconPath": "/images/tabBarPics/strawberry.png",
+      "selectedIconPath": "images/tabBarPics/strawberry-1.png"
+       },
+       {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "/images/tabBarPics/avocado.png",
+        "selectedIconPath": "images/tabBarPics/avocado-1.png"
+       }
+     ]
+  },
+
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

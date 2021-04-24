@@ -1,0 +1,15 @@
+/* pages/my/my.wxss */
+.afterLogOn{
+    display: flex;
+    flex-flow: column;
+}
+.userAvatar{
+    border-radius: 50%;
+    margin:0 auto;
+    width:50px;
+    height: 50px;
+}
+
+.userNickName{
+    text-align: center;
+}

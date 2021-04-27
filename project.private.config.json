@@ -27,6 +27,12 @@
         {
           "name": "pages/my/my",
           "pathName": "pages/my/my",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/aftervotetext/aftervotetext",
+          "pathName": "pages/aftervotetext/aftervotetext",
           "scene": null
         }
       ]

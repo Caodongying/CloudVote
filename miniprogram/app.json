@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/my/my",
     "pages/votetext/votetext",
+    "pages/aftervotetext/aftervotetext",
     "pages/votepic/votepic",
     "pages/votevideo/votevideo",
     "pages/votemuti/votemulti"

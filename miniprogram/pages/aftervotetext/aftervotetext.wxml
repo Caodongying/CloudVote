@@ -1,0 +1,11 @@
+<!--pages/aftervotetext/aftervotetext.wxml-->
+<text>文字投票发布成功！</text>
+
+<view >
+<!-- 投票基本信息展示：名称，起止日期时间，投票状态 -->
+</view>
+
+<button bindtap="voteDetail">详情</button>
+<!-- 详情里有总浏览量，票数排行，所有信息的展示 -->
+<button bindtap="deleteVote">删除投票</button>
+<button bindtap="shareVoote">分享投票</button>

@@ -337,35 +337,36 @@ Page({
      })
 
      //发布过程
-     wx.cloud.callFunction({
-      name:'voteTextSubmit',
+
+     wx.cloud.database().collection('voteText').add({
       data:{
         voteRecord:wx.getStorageSync('voteRecord')
       }
-     }).then(res=>{
+     })
+     .then(res=>{
       console.log("投票表单上传成功！")
+      console.log(res)
       //发布完成
       wx.hideLoading( )
       wx.showToast({
         title:'发布成功！',
         duration:2000
       })
-
-      console.log("res.event:"+res)
-
       //跳转到投票详情页
       wx.navigateTo({
-        url: '/pages/aftervotetext/aftervotetext?voteID='+res._id,
+        url: '/pages/aftervotetext/aftervotetext?voteID='+res._id
+        //url: '/pages/aftervotetext/aftervotetext?voteID=&voteRecord='+res._id+JSON.stringify(this.data.voteRecord)
       })
 
-     }).catch(res=>{
+     })
+    .catch(res=>{
       console.log("投票表单上传失败")
       //发布失败
-       wx.hideLoading( )
-       wx.showToast({
-        title:'发布失败！',
-        icon:'none',
-        duration:2000
+      wx.hideLoading( )
+      wx.showToast({
+      title:'发布失败！',
+      icon:'none',
+      duration:2000
       })
      })
 

@@ -2,7 +2,10 @@
 <text>文字投票发布成功！</text>
 
 <view >
-<!-- 投票基本信息展示：名称，起止日期时间，投票状态 -->
+<!-- 投票基本信息展示：名称，起止日期时间-->
+    <text >投票名称:{{voteRecord.title}}</text> 
+    <view>开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}</view>
+    <view>结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}</view>
 </view>
 
 <button bindtap="voteDetail">详情</button>

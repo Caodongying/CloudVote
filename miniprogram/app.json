@@ -4,6 +4,7 @@
     "pages/my/my",
     "pages/votetext/votetext",
     "pages/aftervotetext/aftervotetext",
+    "pages/voteTextDetail/voteTextDetail",
     "pages/votepic/votepic",
     "pages/votevideo/votevideo",
     "pages/votemuti/votemulti"

@@ -33,6 +33,7 @@
         {
           "name": "pages/aftervotetext/aftervotetext",
           "pathName": "pages/aftervotetext/aftervotetext",
+          "query": "voteID=28ee4e3e608a3f691361160661803f20",
           "scene": null
         }
       ]

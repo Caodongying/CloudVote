@@ -39,7 +39,7 @@
   },
   "appid": "wx4e717258a782fdb0",
   "projectname": "voteapp",
-  "libVersion": "2.14.1",
+  "libVersion": "2.16.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
     "search": {

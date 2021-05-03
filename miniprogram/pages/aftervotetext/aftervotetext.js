@@ -1,8 +1,10 @@
 // pages/aftervotetext/aftervotetext.js
+const app=getApp()
 Page({
   data: {
     voteID:0,
-    voteRecord:" "
+    voteRecord:" ",
+    userInfo:""
   },
 
  
@@ -90,22 +92,68 @@ Page({
 
   //分享当前投票
   shareVote(){
-
+    wx.getUserProfile({
+      desc: "为了分享投票，我们需要获取你的昵称、头像，请问是否同意？",
+      success: (res) => {
+        let user = res.userInfo
+        this.setData({
+          userInfo: user,
+        })
+      },
+      fail: res => {
+        console.log("获取用户信息失败", res)
+      }
+    })
   },
 
    /**
    * 用户点击右上角分享
    */
-    onShareAppMessage: function () {
+    onShareAppMessage() {
+      //请求获取权限
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.userInfo']) { //还没授权
+            wx.authorize({
+              scope: 'scope.userInfo',
+              success () {
+                wx.getUserProfile({
+                  desc: "为了分享投票，我们需要获取你的昵称、头像，请问是否同意？",
+                  success: (res) => {
+                    let user = res.userInfo
+                    this.setData({
+                      userInfo: user,
+                    })
+                  },
+                  fail: res => {
+                    console.log("获取用户信息失败", res)
+                  }
+                })
+              }
+            })
+          }
+        }
+      })
 
+      let that=this  
+      return {
+        title: '文字投票',
+        path: 'pages/votetextshare/votetextshare?voteID=&userInfo='+that.data.voteID+that.data.userInfo,//这里的path是当前页面的path，必须是以 / 开头的完整路径，后面拼接的参数 是分享页面需要的参数  不然分享出去的页面可能会没有内容
+        imageUrl: "/images/voteText.png",
+        // desc: '描述'
+      }
     },
 
-
-  //投票具体信息展示
-  voteDetail(){
-    wx.navigateTo({
-      url:'/pages/voteTextDetail/voteTextDetail'
-    })
+  //排行榜 未完
+  rankVote(){
     
-  }
+  },
+  
+    //投票具体信息展示
+  // voteDetail(){
+  //   wx.navigateTo({
+  //     url:'/pages/voteTextDetail/voteTextDetail'
+  //   })
+    
+  // }
 })

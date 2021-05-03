@@ -7,8 +7,13 @@
     <view>开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}</view>
     <view>结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}</view>
 </view>
-
-<button bindtap="voteDetail">详情</button>
-<!-- 详情里有总浏览量，票数排行，所有信息的展示 -->
+ 
+<view wx:if="{{!voteRecord.isRankVisible}}">排行榜不可见</view>
+<!-- 详情里有票数排行，所有信息的展示 -->
 <button bindtap="deleteVote">删除投票</button>
-<button bindtap="shareVoote">分享投票</button>
+<button  open-type="share">分享投票</button>
+
+<!-- 展示排行榜 -->
+<view wx:if="{{voteRecord.isRankVisible}}">
+    <text >排行榜如下：</text>
+</view>

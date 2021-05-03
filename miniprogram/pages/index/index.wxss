@@ -7,6 +7,7 @@ page {
   justify-content: flex-start;
 }
 
+
 /* 搜索框 */
 .searchRoot {
   padding: 25rpx; 
@@ -23,15 +24,34 @@ page {
   border-radius: 30rpx;
 }
 .searchImg{
-  width: 70rpx;
+  width: 70rpx; 
   height: 70rpx;
   margin: 0 15rpx;
 }
 
-.voteButtons{
-  margin-top: 40rpx;
-}
-.buttonGroup{
+.voteButton{
+  /* margin: 5px 15rpx 0; */
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
+  /* justify-content: space-around; */
+  width:100%;
 }
+
+/* 当button遇到flex布局时,要是不用view包起来的话,
+实现的效果如justify-content:space-evenly的效果 */
+.voteButton_item{
+  display:flex;
+  flex-flow: column;
+  width:375rpx; 
+  margin:auto;
+  align-items: center;
+}
+
+
+
+.voteButton_img{
+  padding:10rpx;
+  height:300rpx;
+  width:340rpx;
+}
+

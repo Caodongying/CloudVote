@@ -187,9 +187,12 @@ Page({
         ['voteRecord.startTime']:currentTime
       })
     }
-    // console.log("结束日期："+ this.data.dateEnd+"开始日期"+this.data.dateBegin)
-    // console.log(this.data.dateEnd>this.data.dateBegin)
-    if(this.data.voteRecord.isSetDateEnd&&(this.data.voteRecord.dateEnd<this.data.voteRecord.dateBegin)){
+    console.log("结束日期："+ this.data.voteRecord.dateEnd+"开始日期"+this.data.voteRecord.dateBegin)
+    var date1 = new Date(this.data.voteRecord.dateEnd)
+    var date2 = new Date(this.data.voteRecord.dateBegin)
+    console.log(date1<date2)
+    console.log(this.data.isSetDateEnd)
+    if(this.data.isSetDateEnd&&(date1<date2)){
       this.setData({ 
         ['voteRecord.dateEnd']:"请选择",//先行填写的结束日期无效
         ['voteRecord.timeEnd']:"请选择",
@@ -200,6 +203,8 @@ Page({
         ['voteRecord._startDate']:e.detail.value//结束日期不得晚于开始日期
       })
     }
+
+
     console.log(this.data.voteRecord.startDate)
   },
 

@@ -19,15 +19,30 @@
   </view>
 
   <!-- 投票按钮 -->
-  <view class="voteButtons">
-    <view class="buttonGroup">
+  <view class="voteButton">
+    <view class="voteButton_item">
+      <image class="voteButton_img" src="/images/voteTextDesc.jpg"></image>
+      <view>
+        <button bindtap="voteText" >文字投票</button>
+      </view>
+    </view>
+
+    <view class="voteButton_item">
+      <image class="voteButton_img" src="/images/voteTextDesc.jpg"></image>
+      <view>
+        <button bindtap="voteMulti" >评选投票</button>
+      </view>
+    </view>
+
+   
+    <!-- <view class="buttonGroup">
       <button bindtap="voteText">文字投票</button>
       <button bindtap="votePic">图片投票</button>
     </view>
     <view class="buttonGroup">
       <button bindtap="voteVedio">视频投票</button>
       <button bindtap="voteMulti">评选投票</button>
-    </view>
+    </view> -->
   </view>
 
 </view>

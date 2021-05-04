@@ -1,4 +1,7 @@
 /* pages/votetext/votetext.wxss */
+page{
+    background:#F0F0F0;
+}
 
 .topImg{
     width: 100%;
@@ -12,6 +15,7 @@
 .rowFlex{
     display:flex;
     flex-direction: row;
+    
 }
 
 .minusImg,.plusImg{
@@ -21,5 +25,10 @@
 
 .currentDT {
     text-align: right;
+}
+
+.button{
+    display: flex;
+    margin-top: 10px;
 }
 

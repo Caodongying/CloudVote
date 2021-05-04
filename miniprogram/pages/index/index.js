@@ -9,6 +9,7 @@ Page({
       {picUrl:'/images/swiperPics-index/2.png'},
       {picUrl:'/images/swiperPics-index/3.jpg'}
     ],
+    userInfo:null
   },
 
   onShow() {
@@ -30,9 +31,33 @@ Page({
 
   //点击文字投票
   voteText(){
-    wx.navigateTo({
-      url: '/pages/votetext/votetext',
-    });
+    //请求获取权限
+    if(!app.globalData.userInfo){
+      wx.getUserProfile({
+        desc: "获取你的昵称、头像、地区及性别",
+        success: (res) => {
+          let user = res.userInfo
+          this.setData({
+            userInfo: user,
+          })
+          
+          //这句之后要注释掉，仅仅为了测试
+          wx.setStorageSync('userInfo',this.data.userInfo)
+
+          app.globalData.userInfo=this.data.userInfo
+          //console.log(app.globalData.userInfo)
+          wx.navigateTo({
+            url: '/pages/votetext/votetext',
+          });
+
+        },
+        fail: res => {
+          console.log("获取用户信息失败", res)
+        }
+      })
+    }
+
+    
   },
 
   //点击图片投票

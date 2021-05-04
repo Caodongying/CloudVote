@@ -11,11 +11,19 @@
   ], 
 
   "usingComponents":{
-
+    "van-button": "/dist/button/index",
+    "van-field":"/dist/field/index",
+    "van-icon":"/dist/icon/index",
+    "van-image":"/dist/image/index",
+    "van-switch":"/dist/switch/index",
+    "van-cell":"/dist/cell/index",
+    "van-cell-group":"/dist/cell-group/index",
+    "van-row":"/dist/row/index",
+    "van-col":"/dist/col/index"
   },
 
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#F0F0F0",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "极简投票",

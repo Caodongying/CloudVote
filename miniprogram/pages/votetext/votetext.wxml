@@ -1,39 +1,39 @@
 <!--pages/votetext/votetext.wxml-->
 <form bindsubmit="voteSubmit">
     <view class="voteTextPage">
+
     <!-- 顶部图片 -->
     <image class="topImg" src="/images/voteText.png" /> 
 
 
     <!-- 基本信息 -->
-    <view class="basicInfo">
-        <view class="rowFlex">
-            <text>活动标题：</text>
-            <input type="text" name="title"  class="input" bindinput="activityTitle"/>
-        </view>
-        <view class="rowFlex">
-            <text >活动介绍：</text>
-            <input type="text" name="description" class="input"  bindinput="activityDescription"/>
-        </view>
-    </view>
+    <van-cell-group title="基本信息">
+        <van-field name="title" label="投票标题："  bind:blur="activityTitle"/>
+        <van-field name="description" label="投票介绍："  bind:blur="activityDescription"/>
+    </van-cell-group>
 
     <!-- 选项管理 -->
-    <view class="options">
+    <van-cell-group title="选项管理">
         <view wx:for="{{voteRecord.voteOption}}" wx:key="index">
-            <view class="rowFlex">
+            <!-- <van-field left-icon="/images/minus.jpeg"  clearable bind:input="optionContent" bind:click-icon="deleteOption" data-index="{{index}}" /> -->
+            <van-field clearable bind:input="optionContent" data-index="{{index}}" >
+                <van-icon name="/images/minus.jpeg" slot="left-icon" bind:tap="deleteOption" data-index="{{index}}"/>
+            </van-field>
+
+            <!-- <view class="rowFlex">
                 <image class="minusImg" src="/images/minus.jpeg" wx:if="{{showMinus}}" bindtap="deleteOption"  data-optionindex="{{index}}"/>
                 <input class="input" type="text"  bindinput="optionContent" data-optionindex="{{index}}"/>
-            </view>
+            </view> -->
         </view>
 
         <view>
             <image class="plusImg" bindtap="addOption" src="/images/plus.jpg" wx:if="{{showPlus}}" />
             <text bindtap="addOption">添加选项</text>
         </view>
-    </view>    
+    </van-cell-group>    
 
     <!-- 投票规则 -->
-    <view class="voteRules">
+    <van-cell-group title="投票规则">
 
         <view class="rowFlex">    
             <text >开始日期  ：</text>
@@ -63,37 +63,30 @@
             </picker>
         </view>
 
-        <!-- 默认每人对每一选项最多只能投一票，仅需设置是否可以投多个选项-->
-        <view class="rowFlex">
-            是否可多选投票
-            <view>
-                <switch color="green" bindchange="setMultiVote"/>
-            </view>
+        <!-- 默认每人对每一选项最多只能投一票，仅需设置是否可以投多个选项-->            
+        <van-cell title="是否多选"  >
+            <van-switch checked="{{voteRecord.isMultiVote}}" bind:change="setMultiVote" size="20" />
+        </van-cell> 
+        
+        <view wx:if="{{voteRecord.isMultiVote}}">
+            <van-field label="最少投票数：" bind:input="setMinVoteNum"/>
+            <van-field label="最多投票数：" bind:input="setMaxVoteNum"/>
         </view>
+       
 
-        <view class="rowFlex">
-            票数是否可见
-            <view>
-                <switch color="green" bindchange="setNumVisible"/>
-            </view>
-        </view>
+        <van-cell title="是否公开排行榜"  >
+            <van-switch checked="{{voteRecord.isRankVisible}}" bind:change="setRankVisible" size="20" />
+        </van-cell>
 
-        <view class="rowFlex">
-            排行榜是否可见
-            <view>
-                <switch color="green" bindchange="setRankVisible"/>
-            </view>
-        </view>
+        <van-cell title="是否匿名"  >
+            <van-switch checked="{{voteRecord.isAnonymous}}" bind:change="setAnonymous" size="20" />
+        </van-cell>
 
-        <view class="rowFlex">
-            <text >是否匿名投票</text>
-            <view>
-                <switch color="green" bindchange="setAnonymous"/>
-            </view>
-        </view>
-    </view>
+    </van-cell-group>
 
     <!-- 确认投票 -->
-    <button type="primary" form-type="submit">确认投票</button>
+    <van-button type="primary" class="button" form-type="submit" size="small">确认投票</van-button>
+    
+    
     </view>
 </form>

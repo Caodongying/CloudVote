@@ -1,19 +1,28 @@
 <!--pages/aftervotetext/aftervotetext.wxml-->
-<text>文字投票发布成功！</text>
+<van-cell-group title="基本信息">
+    <van-cell title="投票名称：{{voteRecord.title}}"></van-cell>
+    <van-cell title="开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}" border="false" center="true"/>
+    <van-cell title="结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}" />
+    <van-cell title="投票简介：{{voteRecord.description}}"/>
+</van-cell-group>
 
-<view >
-<!-- 投票基本信息展示：名称，起止日期时间-->
-    <text >投票名称:{{voteRecord.title}}</text> 
-    <view>开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}</view>
-    <view>结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}</view>
+
+<view class="moreInfo">
+    <text wx:if="{{voteRecord.isMultiVote}}" decode="{{true}}">&nbsp;&nbsp;可多选({{voteRecord.minVoteNum}}-{{voteRecord.maxVoteNum}}个)</text>
+    <text wx:else>不可多选</text>
+    <text wx:if="{{voteRecord.isAnonymous}}">&nbsp;&nbsp;&nbsp;&nbsp;匿名投票</text>
+    <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;实名投票</text>
+    <text wx:if="{{voteRecord.isRankVisible}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜公开</text>
+    <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜不公开</text>
+
+</view>
+
+<!-- 排行榜 -->
+<view class="rankList">
+    <image class="rankImage" src="/images/rankListHead.jpg"/>
 </view>
  
-<view wx:if="{{!voteRecord.isRankVisible}}">排行榜不可见</view>
 <!-- 详情里有票数排行，所有信息的展示 -->
 <button bindtap="deleteVote">删除投票</button>
 <button  open-type="share">分享投票</button>
 
-<!-- 展示排行榜 -->
-<view wx:if="{{voteRecord.isRankVisible}}">
-    <text >排行榜如下：</text>
-</view>

@@ -28,10 +28,12 @@ Page({
       _startTime:"", //结束时间的开始范围
       _startDate:"",//结束日期的开始范围
       isMultiVote:false, //是否为多选投票*
-      isNumVisible:false, //投票数量是否可见*
+      minVoteNum:"",
+      maxVoteNum:"",
+      //isNumVisible:false, //投票数量是否可见*
       isRankVisible:false, //排行榜是否可见*
       isAnonymous:false //是否匿名*
-    }
+    },
   },
 
   onLoad(){
@@ -108,33 +110,35 @@ Page({
 
 
   activityTitle(e){
+   // console.log("e的详情为：",e.detail.value)
     this.setData({
       ['voteRecord.title']:e.detail.value  //用setData进行对象属性的赋值
     })
   }, 
 
   activityDescription(e){
+    //console.log("title的值为",this.data.voteRecord.title)
     this.setData({
       ['voteRecord.description']:e.detail.value
     })
   }, 
 
   optionContent(e){ 
-    let index=e.currentTarget.dataset.optionindex //注意data-value传参忽略大小写！！
+    let index=e.currentTarget.dataset.index //注意data-value传参忽略大小写！！
     // let string='voteRecord.voteOption['+index+'].content'
     // console.log(e)
-    // console.log(index)
-
+    // console.log(e)
     this.setData({
-      [`voteRecord.voteOption[${index}].content`]:e.detail.value 
+      [`voteRecord.voteOption[${index}].content`]:e.detail
     })
+
 
     // this.setData({
     //   string:e.detail.value
     // })
 
     //this.data.voteRecord.voteOption[${index}].content=e.detail.value 
-    //console.log(this.data.voteRecord.voteOption)
+    console.log(this.data.voteRecord.voteOption)
   },
 
   addOption(){  //这是正确的写法
@@ -161,13 +165,13 @@ Page({
       return
     }
     //获取要取消的选项的下标
-    let index=e.currentTarget.dataset.optionindex
-    //console.log("要取消的下标：",index) 
+    let index=e.currentTarget.dataset.index
+    console.log("要取消的下标：",index) 
     let _voteOption=this.data.voteRecord.voteOption
     // console.log("删除前的数组voteOption:",this.data.voteRecord.voteOption)
-    // console.log("删除前的数组_voteOption:",_voteOption)
+    console.log("删除前的数组_voteOption:",_voteOption)
     _voteOption.splice(index,1)
-    // console.log("删除后的数组_voteOption",_voteOption)
+    console.log("删除后的数组_voteOption",_voteOption)
     this.setData({
       ['voteRecord.voteOption']:_voteOption
     })
@@ -276,25 +280,36 @@ Page({
 
   setMultiVote(e){ //是否多选投票 
     this.setData({
-      ['voteRecord.isMultiVote']:e.detail.value
+      ['voteRecord.isMultiVote']:e.detail
     })
   },
 
-  setNumVisible(e){
+  setMinVoteNum(e){
     this.setData({
-      ['voteRecord.isNumVisible']:e.detail.value
+      ['voteRecord.minVoteNum']:e.detail
     })
   },
+
+  setMaxVoteNum(e){
+    this.setData({
+      ['voteRecord.maxVoteNum']:e.detail 
+    })
+  },
+  // setNumVisible(e){
+  //   this.setData({
+  //     ['voteRecord.isNumVisible']:e.detail
+  //   })
+  // },
 
   setRankVisible(e){
     this.setData({
-     ['voteRecord.isRankVisible']:e.detail.value
+     ['voteRecord.isRankVisible']:e.detail
     })
   },
 
   setAnonymous(e){
     this.setData({
-      ['voteRecord.isAnonymous']:e.detail.value
+      ['voteRecord.isAnonymous']:e.detail
     })
   },
 

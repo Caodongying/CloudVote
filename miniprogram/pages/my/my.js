@@ -23,6 +23,7 @@ Page({
           userInfo: user,
         })
         user.openid = app.globalData.openid;
+        app.globalData.userInfo=this.data.userInfo
       },
       fail: res => {
         console.log("获取用户信息失败", res)

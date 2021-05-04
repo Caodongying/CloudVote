@@ -33,7 +33,13 @@
         {
           "name": "pages/aftervotetext/aftervotetext",
           "pathName": "pages/aftervotetext/aftervotetext",
-          "query": "voteID=17453ede608bd454059319815a75f0fa",
+          "query": "voteID=79550af26090ffeb13f7430b1c7b0d2e",
+          "scene": null
+        },
+        {
+          "name": "pages/votetextshare/votetextshare",
+          "pathName": "pages/votetextshare/votetextshare",
+          "query": "voteID=79550af26090ffeb13f7430b1c7b0d2e",
           "scene": null
         }
       ]

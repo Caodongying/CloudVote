@@ -1,1 +1,13 @@
 /* pages/aftervotetext/aftervotetext.wxss */
+.twoDT{
+    font-size: smaller ;
+}
+
+.moreInfo{
+    margin: 20px 0px;
+}
+
+.rankImage{
+    height: 100px;
+    text-align:center
+}

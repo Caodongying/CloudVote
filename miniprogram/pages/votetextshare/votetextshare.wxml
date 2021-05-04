@@ -1,2 +1,28 @@
 <!--pages/votetextshare/votetextshare.wxml-->
+<!-- 本页面即投票界面 -->
 
+<van-row>
+    <van-col>
+        <view class="userImage">
+            <van-image src="{{userInfo.avatarUrl}}" round="true" fit="cover" width="40px" height="40px"/>
+        </view>
+    </van-col>
+    
+    <van-col>
+        <view class="userText">
+            <van-row>投票发起人</van-row>
+            <van-row>{{userInfo.nickName}}</van-row>
+        </view>
+    </van-col>
+    
+    <van-col> 
+        <view class="status">{{voteStatus}}</view> 
+    </van-col>
+  
+
+    <!-- <van-cell title="投票发起人" label="{{userInfo.nickName}}" value="{{voteStatus}}"/> -->
+</van-row>
+
+<!-- 
+    
+</van-cell> -->

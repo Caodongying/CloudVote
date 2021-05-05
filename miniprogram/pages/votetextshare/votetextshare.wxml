@@ -1,6 +1,6 @@
 <!--pages/votetextshare/votetextshare.wxml-->
 <!-- 本页面即投票界面 -->
-
+<form bindsubmit="optionSubmit">
 <van-row>
     <van-col>
         <view class="userImage">
@@ -18,11 +18,31 @@
     <van-col> 
         <view class="status">{{voteStatus}}</view> 
     </van-col>
-  
-
-    <!-- <van-cell title="投票发起人" label="{{userInfo.nickName}}" value="{{voteStatus}}"/> -->
 </van-row>
 
-<!-- 
-    
-</van-cell> -->
+<van-cell title="投票名称" value="{{voteRecord.title}}"/>
+
+<view class="cellHead">投票规则</view>
+
+<van-cell-group> 
+    <van-cell title="开始时间" value="{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}"/>
+    <van-cell title="结束时间" value="{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}"/>
+    <van-cell title="规则" value="每人对每选项至多投一票；本投票为{{anonymousStatus}}投票"/>
+</van-cell-group>
+
+<view class="cellHead">
+    <text >投票项</text>
+    <text class="numLimit">({{multiStatus}})</text>
+</view>
+
+<van-checkbox-group value="{{optionVoted}}" bind:change="chooseOption" max="{{voteRecord.maxVoteNum}}">
+  <view wx:for="{{voteRecord.voteOption}}" wx:key="index">  
+    <view class="optionItem">
+        <van-checkbox name="{{index}}" icon-size="17px">{{item.content}}</van-checkbox>
+    </view>
+  </view>
+</van-checkbox-group>
+
+<van-button class="button" color="pink" form-type="submit" size="small"> 确认投票</van-button>
+
+</form>

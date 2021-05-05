@@ -1,0 +1,20 @@
+/* pages/votetextfinished/votetextfinished.wxss */
+.finishedImg{
+    display: flex;
+    justify-content: center;
+}
+
+.finishedText{
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    color:yellowgreen
+}
+
+.warning{
+    margin-top: 10px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    color:grey
+}

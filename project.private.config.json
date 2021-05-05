@@ -41,6 +41,12 @@
           "pathName": "pages/votetextshare/votetextshare",
           "query": "voteID=79550af26090ffeb13f7430b1c7b0d2e",
           "scene": null
+        },
+        {
+          "name": "pages/votetextfinished/votetextfinished",
+          "pathName": "pages/votetextfinished/votetextfinished",
+          "query": "voteID=79550af26090ffeb13f7430b1c7b0d2e",
+          "scene": null
         }
       ]
     }

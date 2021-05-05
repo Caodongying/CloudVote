@@ -28,7 +28,7 @@ Page({
       _startTime:"", //结束时间的开始范围
       _startDate:"",//结束日期的开始范围
       isMultiVote:false, //是否为多选投票*
-      minVoteNum:"",
+      minVoteNum:1,
       maxVoteNum:"",
       //isNumVisible:false, //投票数量是否可见*
       isRankVisible:false, //排行榜是否可见*
@@ -37,7 +37,8 @@ Page({
   },
 
   onLoad(){
-    console.log("点击之前",this.data.voteRecord.voteOption)
+    // console.log("点击之前",this.data.voteRecord.voteOption)
+    // console.log(app.globalData.openid)
     let date=app.getCurrentDate()
     this.setData({
       currentDate:date,

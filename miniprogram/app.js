@@ -12,7 +12,7 @@ App({
         traceUser: true,
       })
     }
-    this.getOpenID();
+    this.getOpenID()
   },
 
   globalData: {
@@ -24,19 +24,32 @@ App({
   // 获取用户openid
   getOpenID() {
     var app = this;
-    wx.cloud.callFunction({
-      name: 'getOpenid', 
+   var _openid="";
+   wx.cloud.callFunction({
+      name: 'getOpenid',
       success(res) {
         console.log(res)
         console.log('云函数获取openid成功', res.result.openid)
         var openid = res.result.openid;
-        app.globalData.openid = openid;
+        app.globalData.openid=openid;
       },
       fail(res) {
         console.log('云函数获取失败', res)
       }
     })
-    
+    // .then(res=>{
+    //     console.log(res)
+    //     console.log('云函数获取openid成功', res.result.openid)
+    //     var openid = res.result.openid;
+    //     // app.globalData.openid=openid;
+    //     _openid=openid
+    //     return;
+    //     //return openid
+    // })
+    // .catch(res=>{
+    //   console.error()
+    // })
+    // return _openid
   },
 
   

@@ -69,8 +69,14 @@
         </van-cell> 
         
         <view wx:if="{{voteRecord.isMultiVote}}">
-            <van-field label="最少投票数：" bind:input="setMinVoteNum"/>
-            <van-field label="最多投票数：" bind:input="setMaxVoteNum"/>
+            <van-cell title="最少投票数">
+                <van-stepper value="{{1}}" min="{{1}}" max="{{voteRecord.voteOption.length-1}}" bind:change="setMinVoteNum"/>
+            </van-cell>
+
+            <van-cell title="最多投票数">
+                <van-stepper value="{{2}}" min="{{voteRecord.minVoteNum}}" max="{{voteRecord.voteOption.length}}"  bind:change="setMaxVoteNum"/>
+            </van-cell>
+  
         </view>
        
 

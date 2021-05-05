@@ -1,48 +1,54 @@
 <!--pages/votetextshare/votetextshare.wxml-->
 <!-- 本页面即投票界面 -->
 <form bindsubmit="optionSubmit">
-<van-row>
-    <van-col>
-        <view class="userImage">
-            <van-image src="{{userInfo.avatarUrl}}" round="true" fit="cover" width="40px" height="40px"/>
-        </view>
-    </van-col>
-    
-    <van-col>
-        <view class="userText">
-            <van-row>投票发起人</van-row>
-            <van-row>{{userInfo.nickName}}</van-row>
-        </view>
-    </van-col>
-    
-    <van-col> 
-        <view class="status">{{voteStatus}}</view> 
-    </van-col>
-</van-row>
+    <van-row>
+        <van-col>
+            <view class="userImage">
+                <van-image src="{{userInfo.avatarUrl}}" round="true" fit="cover" width="40px" height="40px"/>
+            </view>
+        </van-col>
+        
+        <van-col>
+            <view class="userText">
+                <van-row>投票发起人</van-row>
+                <van-row>{{userInfo.nickName}}</van-row>
+            </view>
+        </van-col>
+        
+        <van-col> 
+            <view class="status">{{voteStatus}}</view> 
+        </van-col>
+    </van-row>
 
-<van-cell title="投票名称" value="{{voteRecord.title}}"/>
+    <van-cell title="投票名称" value="{{voteRecord.title}}"/>
 
-<view class="cellHead">投票规则</view>
+    <view class="cellHead">投票规则</view>
 
-<van-cell-group> 
-    <van-cell title="开始时间" value="{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}"/>
-    <van-cell title="结束时间" value="{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}"/>
-    <van-cell title="规则" value="每人对每选项至多投一票；本投票为{{anonymousStatus}}投票"/>
-</van-cell-group>
+    <van-cell-group> 
+        <van-cell title="开始时间" value="{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}"/>
+        <van-cell title="结束时间" value="{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}"/>
+        <van-cell title="规则" value="每人对每选项至多投一票；本投票为{{anonymousStatus}}投票"/>
+    </van-cell-group>
 
-<view class="cellHead">
-    <text >投票项</text>
-    <text class="numLimit">({{multiStatus}})</text>
-</view>
-
-<van-checkbox-group value="{{optionVoted}}" bind:change="chooseOption" max="{{voteRecord.maxVoteNum}}">
-  <view wx:for="{{voteRecord.voteOption}}" wx:key="index">  
-    <view class="optionItem">
-        <van-checkbox name="{{index}}" icon-size="17px">{{item.content}}</van-checkbox>
+    <view class="cellHead">
+        <text >投票项</text>
+        <text class="numLimit">({{multiStatus}})</text>
     </view>
-  </view>
-</van-checkbox-group>
 
-<van-button class="button" color="pink" form-type="submit" size="small"> 确认投票</van-button>
+    <!-- 投票项的展示这里存在一个问题，即如果复选框内容过多，会显示不完全。
+        vantUI没有解决这个问题，内部使用van-field组件并设为高度自适应也没有用。
+        如要解决，我觉得可以弃用checkbox组件，弃用vantUI，直接用小程序的原生组件view实现。
+        显示图标和内容，设置图标点击后变色，记录index。相应的，在表单验证中要加入最大可选数的验证。
+        或者，可以限制选项的字数，但是我觉得这样更不人性化。
+        但是今天已经5.5号了，这个地方的bug我想先忽视掉，不完善了。有点儿来不及了。 -->
+    <van-checkbox-group value="{{optionVoted}}" bind:change="chooseOption" min="{{voteRecord.minVoteNum}}" max="{{voteRecord.maxVoteNum}}">
+    <view wx:for="{{voteRecord.voteOption}}" wx:key="index">  
+        <view class="optionItem">
+            <van-checkbox name="{{index}}" icon-size="17px">{{item.content}}</van-checkbox>
+        </view>
+    </view>
+    </van-checkbox-group>
+
+    <van-button class="button" color="pink" form-type="submit" size="small"> 确认投票</van-button>
 
 </form>

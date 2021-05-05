@@ -5,6 +5,7 @@
     "pages/votetext/votetext",
     "pages/aftervotetext/aftervotetext",
     "pages/votetextshare/votetextshare",
+    "pages/votetextfinished/votetextfinished",
     "pages/votepic/votepic",
     "pages/votevideo/votevideo",
     "pages/votemuti/votemulti"
@@ -21,7 +22,8 @@
     "van-row":"/dist/row/index",
     "van-col":"/dist/col/index",
     "van-checkbox-group":"/dist/checkbox-group/index",
-    "van-checkbox":"/dist/checkbox/index"
+    "van-checkbox":"/dist/checkbox/index",
+    "van-stepper":"/dist/stepper/index"
   },
 
   "window": {

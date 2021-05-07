@@ -10,8 +10,19 @@ Page({
     userInfo:null
   },
 
+  onShow(){
+    console.log("在my界面的userInfo",app.globalData.userInfo)
+    // let bol=this.data.showLogOnButton
+    if(app.globalData.userInfo){ //已经授权登录了
+      this.setData({
+        showLogOnButton:false,
+        userInfo:app.globalData.userInfo
+      })
+    }
+  },
+
   onGetUsrProfile(e){
-   // console.log("按下了按键",e);
+    // console.log("按下了按键",e);
     wx.getUserProfile({
       desc: "获取你的昵称、头像、地区及性别",
       success: (res) => {

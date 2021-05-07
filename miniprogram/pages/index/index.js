@@ -7,11 +7,15 @@ Page({
     picForSwiper:[
       {picUrl:'/images/swiperPics-index/1.jpg'},
       {picUrl:'/images/swiperPics-index/2.png'},
-      {picUrl:'/images/swiperPics-index/3.jpg'}
+      // {picUrl:'/images/swiperPics-index/3.jpg'}
     ],
     userInfo:null
   },
 
+  onLoad(){
+    console.log(app.globalData.userInfo)
+  },
+  
   onShow() {
     searchKey = '' //每次返回首页时，清空搜索词
   },
@@ -31,8 +35,13 @@ Page({
 
   //点击文字投票
   voteText(){
+    if(app.globalData.userInfo){
+      wx.navigateTo({
+        url: '/pages/votetext/votetext',
+      });
+    }
     //请求获取权限
-    if(!app.globalData.userInfo){
+    else{
       wx.getUserProfile({
         desc: "获取你的昵称、头像、地区及性别",
         success: (res) => {
@@ -42,19 +51,19 @@ Page({
           })
           
           //这句之后要注释掉，仅仅为了测试
-          wx.setStorageSync('userInfo',this.data.userInfo)
-
+          // wx.setStorageSync('userInfo',this.data.userInfo)
           app.globalData.userInfo=this.data.userInfo
           //console.log(app.globalData.userInfo)
+          
           wx.navigateTo({
             url: '/pages/votetext/votetext',
           });
-
         },
+
         fail: res => {
           console.log("获取用户信息失败", res)
         }
-      })
+      })     
     }
 
     

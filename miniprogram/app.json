@@ -6,9 +6,9 @@
     "pages/aftervotetext/aftervotetext",
     "pages/votetextshare/votetextshare",
     "pages/votetextfinished/votetextfinished",
-    "pages/votepic/votepic",
-    "pages/votevideo/votevideo",
-    "pages/votemuti/votemulti"
+    "pages/voteselect/voteselect",
+    "pages/votetemplate/votetemplate" 
+
   ], 
 
   "usingComponents":{

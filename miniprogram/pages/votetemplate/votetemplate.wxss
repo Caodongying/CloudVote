@@ -1,0 +1,39 @@
+/* pages/votetemplate/votetemplate.wxss */
+.page{
+    display: flex;
+    flex-direction: column;
+}
+
+.cellGroupName{
+    font-size: 13px;
+    color: coral;
+    margin-left: 10px;
+    font-weight: bolder;
+}
+
+.cover{
+    width:100%;
+    height:136px;
+}
+
+.rowFlex{
+    display:flex;
+    flex-direction: row;
+    
+}
+
+.currentDT {
+    text-align: right;
+}
+
+.pickers{
+    /* margin-bottom:10px ; */
+    margin-left: 17px;
+    font-size: 14px;
+}
+
+.threeOptions{
+    font-size: 14px;
+    margin-left: 17px;
+    flex-flow: row;
+}

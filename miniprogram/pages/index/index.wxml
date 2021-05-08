@@ -30,7 +30,7 @@
     <view class="voteButton_item">
       <image class="voteButton_img" src="/images/voteTextDesc.jpg"></image>
       <view>
-        <button bindtap="voteMulti" >评选投票</button>
+        <button bindtap="voteSelect" >评选投票</button>
       </view>
     </view>
 

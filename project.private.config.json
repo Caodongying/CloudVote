@@ -51,6 +51,19 @@
         {
           "name": "pages/votetextfinished/votetextfinished",
           "pathName": "pages/votetextfinished/votetextfinished",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/voteselect/voteselect",
+          "pathName": "pages/voteselect/voteselect",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/votetemplate/votetemplate",
+          "pathName": "pages/votetemplate/votetemplate",
+          "query": "templateID=28ee4e3e6095571416c20bfe3cd496e2",
           "scene": null
         }
       ]

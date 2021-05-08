@@ -1,0 +1,64 @@
+/* pages/voteselect/voteselect.wxss */
+page {
+    background: #f6f6f6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  
+/* 搜索框 */
+.searchRoot {
+    padding: 25rpx; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.searchInput {
+    flex: 1;
+    height: 70rpx;
+    padding-left: 30rpx;
+    border: 1px solid #f4c903;
+    border-radius: 30rpx;
+}
+.searchImg{
+    width: 70rpx; 
+    height: 70rpx;
+    margin: 0 15rpx;
+}
+
+.oneTemplate{
+    display: flex;
+    margin: 3px 2px 3px 10px;
+    flex-flow: row;
+    background-color:white;
+}
+
+/* 封面比例：900*383 */
+.cover{
+    width:200px;
+    height:85px;
+}
+
+.templateRight{
+    display: flex;
+    width:120px;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.templateTitle{
+    font-size: large;
+    font-size: medium;
+    border: solid 2px rgb(245, 193, 104);
+    border-radius: 10%;
+    background-color: rgba(241, 221, 128, 0.781);
+} 
+
+.titleInner{
+    color:black;
+    padding:3px;
+}
+  

@@ -31,15 +31,15 @@ Page({
         console.log("打印用户信息",user)
         this.setData({
           showLogOnButton:false,
-          userInfo: user,
+          userInfo: user, 
         })
         user.openid = app.globalData.openid;
         app.globalData.userInfo=this.data.userInfo
       },
       fail: res => {
         console.log("获取用户信息失败", res)
-      }
-    })
+      } 
+    })  
   },
 
 })

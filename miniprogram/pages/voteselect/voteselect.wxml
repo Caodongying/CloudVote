@@ -1,0 +1,23 @@
+<!--pages/voteselect/voteselect.wxml-->
+<view class="searchRoot">
+    <input class="searchInput" placeholder="搜索投票项" bindconfirm="goSearch" confirm-type="search" bindinput="goSearchKey"/>
+    <image class="searchImg" src="/images/search.png" bindtap="goSearch"></image>
+</view>
+
+
+<view wx:for="{{template}}" wx:key="index" >
+    <view class="oneTemplate">
+        <image src="{{item.coverID}}" class="cover"/>
+        <view class="templateRight">
+            <view class="templateTitle" bindtap="onVote" data-templateID="{{item._id}}">
+                <view class="titleInner">{{item.templateTitle}}</view>
+            </view>
+            <!-- <van-button size="mini" style="width:50px">创建</van-button> -->
+        </view>
+    </view>
+    <!-- <van-field clearable bind:input="optionContent" data-index="{{index}}" >
+        <van-icon name="/images/minus.jpeg" slot="left-icon" bind:tap="deleteOption" data-index="{{index}}"/>
+    </van-field> -->
+</view>
+
+    

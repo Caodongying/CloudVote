@@ -29,7 +29,7 @@ Page({
   //Step2-搜索点击事件
   goSearch() {
     wx.navigateTo({
-      url: this.checkFoodPage() + '?searchKey=' + searchKey,
+      url: this.searchVote() + '?searchKey=' + searchKey,
     })
   },
 
@@ -69,24 +69,10 @@ Page({
     
   },
 
-  //点击图片投票
-  votePic(){
-    wx.navigateTo({
-      url: '/pages/votepic/votepic',
-    });
-  },
-
-  //点击视频投票
-  voteVedio(){
-    wx.navigateTo({
-      url: '/pages/votevideo/votevideo',
-    });
-  },
-
   //点击评选投票
-  voteMulti(){
+  voteSelect(){
     wx.navigateTo({
-      url: '/pages/votemuti/votemulti',
+      url: '/pages/voteselect/voteselect',
     });
   },
 

@@ -23,7 +23,9 @@
     "van-col":"/dist/col/index",
     "van-checkbox-group":"/dist/checkbox-group/index",
     "van-checkbox":"/dist/checkbox/index",
-    "van-stepper":"/dist/stepper/index"
+    "van-grid":"/dist/grid/index",
+    "van-grid-item":"/dist/grid-item/index"
+
   },
 
   "window": {

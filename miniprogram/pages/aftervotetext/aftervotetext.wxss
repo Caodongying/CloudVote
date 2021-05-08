@@ -5,6 +5,7 @@
 
 .moreInfo{
     margin: 20px 0px;
+    /* color:coral; */
 }
 
 .rankImage{

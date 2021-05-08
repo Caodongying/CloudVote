@@ -16,7 +16,35 @@
     <view>
         <text class="cellGroupName">投票规则</text>
         
+        <view class="pickers">
+                <view class="rowFlex">    
+                    <text >投票开始日期  ：</text>
+                    <picker mode="date" name="dateBegin" value="{{voteRecord.dateBegin}}" start="{{voteRecord.startDate}}" bindchange="bindBeginDateChange">
+                        <view class="currentDT">{{voteRecord.dateBegin}}</view>
+                    </picker>   
+                </view>
 
+                <view class="rowFlex">
+                    <text >投票开始时间  ：</text>   
+                    <picker mode="time" name="timeBegin" value="{{voteRecord.timeBegin}}" start="{{voteRecord.startTime}}"  bindchange="bindBeginTimeChange">
+                        <view class="currentDT">{{voteRecord.timeBegin}}</view>
+                    </picker>
+                </view>
+
+                <view class="rowFlex">    
+                    <text >投票结束日期  ：</text>
+                    <picker mode="date" name="dateEnd" value="{{voteRecord.dateEnd}}" start="{{voteRecord._startDate}}"  bindchange="bindEndDateChange">
+                        <view class="currentDT">{{voteRecord.dateEnd}}</view>
+                    </picker>   
+                </view>
+
+                <view class="rowFlex">
+                    <text >投票结束时间  ：</text>   
+                    <picker mode="time" name="timeEnd" value="{{voteRecord.timeEnd}}" start="{{voteRecord._startTime}}"  bindchange="bindEndTimeChange">
+                        <view class="currentDT">{{voteRecord.timeEnd}}</view>
+                    </picker>
+                </view>
+        </view>
         <!-- 默认每人对每一选项最多只能投一票，仅需设置是否可以投多个选项-->            
         <van-cell title="是否多选"  >
             <van-switch checked="{{voteRecord.isMultiVote}}" bind:change="setMultiVote" size="20" />
@@ -61,36 +89,6 @@
         </van-cell>
 
         <view wx:if="{{voteRecord.isEnroll}}">
-            <view class="pickers">
-                <view class="rowFlex">    
-                    <text >投票开始日期  ：</text>
-                    <picker mode="date" name="dateBegin" value="{{voteRecord.dateBegin}}" start="{{voteRecord.startDate}}" bindchange="bindBeginDateChange">
-                        <view class="currentDT">{{voteRecord.dateBegin}}</view>
-                    </picker>   
-                </view>
-
-                <view class="rowFlex">
-                    <text >投票开始时间  ：</text>   
-                    <picker mode="time" name="timeBegin" value="{{voteRecord.timeBegin}}" start="{{voteRecord.startTime}}"  bindchange="bindBeginTimeChange">
-                        <view class="currentDT">{{voteRecord.timeBegin}}</view>
-                    </picker>
-                </view>
-
-                <view class="rowFlex">    
-                    <text >投票结束日期  ：</text>
-                    <picker mode="date" name="dateEnd" value="{{voteRecord.dateEnd}}" start="{{voteRecord._startDate}}"  bindchange="bindEndDateChange">
-                        <view class="currentDT">{{voteRecord.dateEnd}}</view>
-                    </picker>   
-                </view>
-
-                <view class="rowFlex">
-                    <text >投票结束时间  ：</text>   
-                    <picker mode="time" name="timeEnd" value="{{voteRecord.timeEnd}}" start="{{voteRecord._startTime}}"  bindchange="bindEndTimeChange">
-                        <view class="currentDT">{{voteRecord.timeEnd}}</view>
-                    </picker>
-                </view>
-            </view>
-
             <van-cell title="是否填写手机号"  >
                 <van-switch checked="{{voteRecord.isNeedTel}}" bind:change="setNeedTel" size="20" />
             </van-cell>

@@ -14,7 +14,6 @@
     <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;实名投票</text>
     <text wx:if="{{voteRecord.isRankVisible}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜公开</text>
     <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜不公开</text>
-
 </view>
 
 <!-- 排行榜 -->

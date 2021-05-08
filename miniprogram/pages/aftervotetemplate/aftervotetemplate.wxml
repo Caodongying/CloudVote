@@ -1,2 +1,47 @@
 <!--pages/aftervotetemplate/aftervotetemplate.wxml-->
-<text>pages/aftervotetemplate/aftervotetemplate.wxml</text>
+<image src="{{voteRecord.cover}}" class="cover"/>
+<van-cell-group title="基本信息">
+    <van-cell title="投票名称：{{voteRecord.title}}"></van-cell>
+    <van-cell title="投票简介：{{voteRecord.description}}"/>
+    <view wx:if="{{voteRecord.isEnroll}}">
+        <van-cell title="开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}" border="false" center="true"/>
+        <van-cell title="结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}" />
+    </view>
+</van-cell-group>
+
+<view class="moreInfo">
+    <view>
+        <text wx:if="{{voteRecord.isMultiVote}}">可多选(至多{{voteRecord.maxVoteNum}}个)</text>
+        <text wx:else>不可多选</text>
+        <text wx:if="{{voteRecord.isRankVisible}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜公开</text>
+        <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜不公开</text>
+        <text wx:if="{{voteRecord.isShowOnBoard}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;展示在主页</text>
+        <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;不展示在主页</text>
+    </view>    
+
+    <view>
+        <text wx:if="{{voteRecord.isShowSponsor}}" >主办方（{{voteRecord.sponsorName}}，{{voteRecord.sponsorTel}}）</text>
+        <text wx:else >不展示主办方信息</text>
+    </view>
+
+    <view >
+        <text wx:if="{{voteRecord.isEnroll}}" >开放报名</text>
+        <text wx:else >不开放报名</text>
+    </view>
+    <view >
+        <text wx:if="{{voteRecord.isNeedTel}}" >参赛者需要填写手机号</text>
+        <text wx:else >参赛者不需要填写手机号</text>
+        <text wx:if="{{voteRecord.isNeedImg}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;必须上传参赛图片（最多{{voteRecord.maxImg}}张）</text>
+        <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;不需要上传参赛图片</text>
+        <text wx:if="{{voteRecord.isNeedVedio}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;必须上传参赛视频</text>
+        <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;不需要上传参赛视频</text>
+    </view>
+</view>
+
+<van-grid class="operate" column-num="5" clickable gutter="5px" square border>
+  <van-grid-item icon="friends-o" text="选手" bind:click="candidateManage"/>
+  <van-grid-item icon="fire-o" text="排行榜" bind:click="showRankList"/>
+  <van-grid-item icon="edit" text="编辑" bind:click="voteEdit"/>
+  <van-grid-item icon="delete-o" text="删除" bind:click="voteDelete"/>
+  <van-grid-item icon="share-o" text="分享" bind:click="voteShare"/>
+</van-grid>

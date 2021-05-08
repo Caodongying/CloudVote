@@ -7,8 +7,8 @@
     "pages/votetextshare/votetextshare",
     "pages/votetextfinished/votetextfinished",
     "pages/voteselect/voteselect",
-    "pages/votetemplate/votetemplate" 
-
+    "pages/votetemplate/votetemplate" ,
+    "pages/aftervotetemplate/aftervotetemplate"
   ], 
 
   "usingComponents":{

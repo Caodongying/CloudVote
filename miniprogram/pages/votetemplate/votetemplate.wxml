@@ -1,121 +1,127 @@
 <!--pages/votetemplate/votetemplate.wxml-->
-<van-cell title="上传自定义封面图" icon="photo" bind:tap="userDefinedCover"/>
-<image src="{{voteRecord.cover}}" class="cover"/>
 
-<!-- <van-cell-group title="基本信息"> -->
-<view>
-    <text class="cellGroupName">基本信息</text>
-    <van-field name="title" label="投票标题：" value="{{voteRecord.title}}" bind:blur="activityTitle"/>
-    <van-field name="description" label="投票介绍："  value="{{voteRecord.description}}" bind:blur="activityDescription"/>
-</view>
-<!-- </van-cell-group> -->
+<form bindsubmit="voteSubmit">
+    <van-cell title="上传自定义封面图" icon="photo" bind:tap="userDefinedCover"/>
+    <image src="{{voteRecord.cover}}" class="cover"/>
 
-<!-- 投票规则 -->
-<view>
-    <text class="cellGroupName">投票规则</text>
-    
-
-    <!-- 默认每人对每一选项最多只能投一票，仅需设置是否可以投多个选项-->            
-    <van-cell title="是否多选"  >
-        <van-switch checked="{{voteRecord.isMultiVote}}" bind:change="setMultiVote" size="20" />
-    </van-cell> 
-    
-    <view wx:if="{{voteRecord.isMultiVote}}">
-        <van-cell title="最大投票数">
-            <van-stepper value="{{2}}" min="{{2}}"  bind:change="setMaxVoteNum"/>
-        </van-cell>
-
+    <!-- <van-cell-group title="基本信息"> -->
+    <view>
+        <text class="cellGroupName">基本信息</text>
+        <van-field name="title" label="投票标题：" value="{{voteRecord.title}}" bind:blur="activityTitle"/>
+        <van-field name="description" label="投票介绍："  value="{{voteRecord.description}}" bind:blur="activityDescription"/>
     </view>
+    <!-- </van-cell-group> -->
 
-    <van-cell title="是否公开排行榜"  >
-        <van-switch checked="{{voteRecord.isRankVisible}}" bind:change="setRankVisible" size="20" />
-    </van-cell>
+    <!-- 投票规则 -->
+    <view>
+        <text class="cellGroupName">投票规则</text>
+        
 
-    <van-cell title="是否在主页展示"  >
-        <van-switch checked="{{voteRecord.isShowOnBoard}}" bind:change="setShowOnBoard" size="20" />
-    </van-cell>
+        <!-- 默认每人对每一选项最多只能投一票，仅需设置是否可以投多个选项-->            
+        <van-cell title="是否多选"  >
+            <van-switch checked="{{voteRecord.isMultiVote}}" bind:change="setMultiVote" size="20" />
+        </van-cell> 
+        
+        <view wx:if="{{voteRecord.isMultiVote}}">
+            <van-cell title="最大投票数">
+                <van-stepper value="{{maxVoteNum}}" min="{{2}}"  bind:change="setMaxVoteNum"/>
+            </van-cell>
 
-    <van-cell title="主办方信息"  >
-        <van-switch checked="{{voteRecord.isShowSponsor}}" bind:change="setShowSponsor" size="20" />
-    </van-cell>
-
-    <view wx:if="{{voteRecord.isShowSponsor}}">
-        <van-field label="名字：" value="{{voteRecord.sponsorName}}" name="sponsorName" bind:input="setSponsorName"/>
-        <van-field 
-            value="{{voteRecord.sponsorTel}}"
-            type="number"
-            label="手机号："
-            name="sponsorTel"
-            bind:input="setSponsorTel"
-        />
-    </view>
-
-</view>
-
-<view>
-    <text class="cellGroupName">报名规则</text>
-    <van-cell title="是否开放报名"  >
-        <van-switch checked="{{voteRecord.isEnroll}}" bind:change="setEnroll" size="20" />
-    </van-cell>
-
-    <view wx:if="{{voteRecord.isEnroll}}">
-        <view class="pickers">
-            <view class="rowFlex">    
-                <text >投票开始日期  ：</text>
-                <picker mode="date" name="dateBegin" value="{{voteRecord.dateBegin}}" start="{{voteRecord.startDate}}" bindchange="bindBeginDateChange">
-                    <view class="currentDT">{{voteRecord.dateBegin}}</view>
-                </picker>   
-            </view>
-
-            <view class="rowFlex">
-                <text >投票开始时间  ：</text>   
-                <picker mode="time" name="timeBegin" value="{{voteRecord.timeBegin}}" start="{{voteRecord.startTime}}"  bindchange="bindBeginTimeChange">
-                    <view class="currentDT">{{voteRecord.timeBegin}}</view>
-                </picker>
-            </view>
-
-            <view class="rowFlex">    
-                <text >投票结束日期  ：</text>
-                <picker mode="date" name="dateEnd" value="{{voteRecord.dateEnd}}" start="{{voteRecord._startDate}}"  bindchange="bindEndDateChange">
-                    <view class="currentDT">{{voteRecord.dateEnd}}</view>
-                </picker>   
-            </view>
-
-            <view class="rowFlex">
-                <text >投票结束时间  ：</text>   
-                <picker mode="time" name="timeEnd" value="{{voteRecord.timeEnd}}" start="{{voteRecord._startTime}}"  bindchange="bindEndTimeChange">
-                    <view class="currentDT">{{voteRecord.timeEnd}}</view>
-                </picker>
-            </view>
         </view>
 
-        <van-cell title="是否填写手机号"  >
-            <van-switch checked="{{voteRecord.isNeedTel}}" bind:change="setNeedTel" size="20" />
+        <van-cell title="是否公开排行榜"  >
+            <van-switch checked="{{voteRecord.isRankVisible}}" bind:change="setRankVisible" size="20" />
         </van-cell>
 
-        <van-cell title="是否上传参赛图片"  >
-            <van-switch checked="{{voteRecord.isNeedImg}}" bind:change="setNeedImg" size="20" />
+        <van-cell title="是否在主页展示"  >
+            <van-switch checked="{{voteRecord.isShowOnBoard}}" bind:change="setShowOnBoard" size="20" />
         </van-cell>
 
-         <van-cell title="最多可以上传的图片数" wx:if="{{voteRecord.isNeedImg}}">
-            <van-stepper value="{{1}}" min="{{1}}"  bind:change="setMaxImg"/>
+        <van-cell title="主办方信息"  >
+            <van-switch checked="{{voteRecord.isShowSponsor}}" bind:change="setShowSponsor" size="20" />
         </van-cell>
 
+        <view wx:if="{{voteRecord.isShowSponsor}}">
+            <van-field label="名字：" value="{{voteRecord.sponsorName}}" name="sponsorName" bind:input="setSponsorName"/>
+            <van-field 
+                value="{{voteRecord.sponsorTel}}"
+                type="number"
+                label="手机号："
+                name="sponsorTel"
+                bind:input="setSponsorTel"
+            />
+        </view>
 
-        <van-cell title="是否上传参赛视频"  >
-            <van-switch checked="{{voteRecord.isNeedVedio}}" bind:change="setNeedVedio" size="20" />
-        </van-cell>
-
-        <!-- <view class="threeOptions" > 
-            <van-row gutter="20">
-                <van-col >参赛图片：</van-col>
-                <van-col bind:tap="setNeedImg" offset="5" data-option="1">必选</van-col>
-                <van-col bind:tap="setNeedImg" data-option="2">可选</van-col>
-                <van-col bind:tap="setNeedImg" data-option="3">不选</van-col>
-            </van-row>
-        </view> -->
     </view>
-</view>
+
+    <view>
+        <text class="cellGroupName">报名规则</text>
+        <van-cell title="是否开放报名"  >
+            <van-switch checked="{{voteRecord.isEnroll}}" bind:change="setEnroll" size="20" />
+        </van-cell>
+
+        <view wx:if="{{voteRecord.isEnroll}}">
+            <view class="pickers">
+                <view class="rowFlex">    
+                    <text >投票开始日期  ：</text>
+                    <picker mode="date" name="dateBegin" value="{{voteRecord.dateBegin}}" start="{{voteRecord.startDate}}" bindchange="bindBeginDateChange">
+                        <view class="currentDT">{{voteRecord.dateBegin}}</view>
+                    </picker>   
+                </view>
+
+                <view class="rowFlex">
+                    <text >投票开始时间  ：</text>   
+                    <picker mode="time" name="timeBegin" value="{{voteRecord.timeBegin}}" start="{{voteRecord.startTime}}"  bindchange="bindBeginTimeChange">
+                        <view class="currentDT">{{voteRecord.timeBegin}}</view>
+                    </picker>
+                </view>
+
+                <view class="rowFlex">    
+                    <text >投票结束日期  ：</text>
+                    <picker mode="date" name="dateEnd" value="{{voteRecord.dateEnd}}" start="{{voteRecord._startDate}}"  bindchange="bindEndDateChange">
+                        <view class="currentDT">{{voteRecord.dateEnd}}</view>
+                    </picker>   
+                </view>
+
+                <view class="rowFlex">
+                    <text >投票结束时间  ：</text>   
+                    <picker mode="time" name="timeEnd" value="{{voteRecord.timeEnd}}" start="{{voteRecord._startTime}}"  bindchange="bindEndTimeChange">
+                        <view class="currentDT">{{voteRecord.timeEnd}}</view>
+                    </picker>
+                </view>
+            </view>
+
+            <van-cell title="是否填写手机号"  >
+                <van-switch checked="{{voteRecord.isNeedTel}}" bind:change="setNeedTel" size="20" />
+            </van-cell>
+
+            <van-cell title="是否上传参赛图片"  >
+                <van-switch checked="{{voteRecord.isNeedImg}}" bind:change="setNeedImg" size="20" />
+            </van-cell>
+
+            <van-cell title="最多可以上传的图片数" wx:if="{{voteRecord.isNeedImg}}">
+                <van-stepper value="{{maxImg}}" min="{{1}}"  bind:change="setMaxImg"/>
+            </van-cell>
+
+
+            <van-cell title="是否上传参赛视频"  >
+                <van-switch checked="{{voteRecord.isNeedVedio}}" bind:change="setNeedVedio" size="20" />
+            </van-cell>
+
+            <!-- <view class="threeOptions" > 
+                <van-row gutter="20">
+                    <van-col >参赛图片：</van-col>
+                    <van-col bind:tap="setNeedImg" offset="5" data-option="1">必选</van-col>
+                    <van-col bind:tap="setNeedImg" data-option="2">可选</van-col>
+                    <van-col bind:tap="setNeedImg" data-option="3">不选</van-col>
+                </van-row>
+            </view> -->
+        </view>
+
+        <van-button color="coral" size="small" class="button" form-type="submit" size="small">确认投票</van-button>
+    </view>
+
+</form>
 
 
 

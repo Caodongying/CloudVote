@@ -23,7 +23,7 @@ Page({
       _startTime:"", //结束时间的开始范围
       _startDate:"",//结束日期的开始范围
       isMultiVote:false, //是否为多选投票*
-      maxVoteNum:"",
+      maxVoteNum:"2",
       isRankVisible:false, //排行榜是否可见*
       isShowOnBoard:false,//是否展示在主页
       isShowSponsor:false,//是否展示主办方信息
@@ -33,7 +33,7 @@ Page({
       isNeedTel:false,//参赛者是否要填写手机号
       isNeedImg:false,//参赛者是否需要上传图片
       isNeedVedio:false,//参赛者是否需要上传视频
-      maxImg:"0",//参赛者最多可以上传的图片数量
+      maxImg:"1",//参赛者最多可以上传的图片数量
     }
   },
 
@@ -49,7 +49,131 @@ Page({
       ['voteRecord._startDate']:date
     })
     this.getTemplate()
+    // this.initValidate1()
   },
+
+ //表单验证初始化-需要主办方信息
+  initValidate1(){ 
+    const rules={ //参数-rules
+      title:{
+        required:true//确保已填写
+      },
+      description:{
+        required:true   
+      },
+      sponsorName:{
+        required:true
+      },
+      sponsorTel:{
+        required:true,
+        tel:true
+      },
+      dateBegin:{
+        // required:true,
+        date:true
+      },
+      timeBegin:{
+        // required:true,
+        contains: ':'
+      },
+      dateEnd:{
+        // required:true,
+        date:true
+      },
+      timeEnd:{
+        // required:true,
+        contains: ':'
+      },
+    }
+
+    const messages={ //参数-messages
+      title:{
+        required:'请填写投票标题'
+      },
+      description:{
+        required:'请填写投票介绍'
+      },
+      sponsorName:{
+        required:'请填写主办方名字'
+      },
+      sponsorTel:{
+        required:'请填写主办方手机号',
+        tel:'请输入正确的手机号'
+      },
+      dateBegin:{
+        required:'请选择开始日期',
+        date:'请选择开始日期'
+      },
+      timeBegin:{
+        required:'请选择开始时间',
+        contains:"请选择开始时间"
+      },
+      dateEnd:{
+        required:'请选择结束日期',
+        date:'请选择结束日期'
+      },
+      timeEnd:{
+        required:'请选择结束时间',
+        contains:'请选择结束时间'
+      }
+    }
+    this.wxValidate=app.wxValidate(rules,messages) //调用函数并传参
+  },
+
+  //表单验证初始化-不需要主办方信息
+  initValidate2(){ 
+    const rules={ //参数-rules
+      title:{
+        required:true//确保已填写
+      },
+      description:{
+        required:true   
+      },
+      dateBegin:{
+        // required:true,
+        date:true
+      },
+      timeBegin:{
+        // required:true,
+        contains: ':'
+      },
+      dateEnd:{
+        // required:true,
+        date:true
+      },
+      timeEnd:{
+        // required:true,
+        contains: ':'
+      },
+    }
+
+    const messages={ //参数-messages
+      title:{
+        required:'请填写投票标题'
+      },
+      description:{
+        required:'请填写投票介绍'
+      },
+      dateBegin:{
+        required:'请选择开始日期',
+        date:'请选择开始日期'
+      },
+      timeBegin:{
+        required:'请选择开始时间',
+        contains:"请选择开始时间"
+      },
+      dateEnd:{
+        required:'请选择结束日期',
+        date:'请选择结束日期'
+      },
+      timeEnd:{
+        required:'请选择结束时间',
+        contains:'请选择结束时间'
+      }
+    }
+    this.wxValidate=app.wxValidate(rules,messages) //调用函数并传参
+  },
+
 
   getTemplate(){
     let that=this
@@ -292,6 +416,70 @@ Page({
      })
   },
   
+  voteSubmit(e){
+    //需要提供主办方信息
+    if(this.data.voteRecord.isShowSponsor){
+      this.initValidate1()
+    }
+    else{
+      this.initValidate2()
+    }
+    if(!this.wxValidate.checkForm(e.detail.value)){ //表单选项外的部分有问题
+      const error=this.wxValidate.errorList[0]
+      console.log(error)
+      wx.showToast({
+        title: `${error.msg}`,
+        icon:'none',
+        duration:2000
+      })
+      return false
+    }
+
+    //表单正确 
+    //2-缓存表单至本地
+    wx.setStorageSync('voteRecord',this.data.voteRecord)
+
+    //3-上传表单至数据库
+    wx.showLoading({
+      title: '正在上传···',
+    })
+
+    //发布过程
+
+    wx.cloud.database().collection('voteSelect').add({
+      data:{
+        voteRecord:wx.getStorageSync('voteRecord')
+      }
+    })
+    .then(res=>{
+      console.log("评选投票表单上传成功！")
+      //发布完成
+      wx.hideLoading( )
+      wx.showToast({
+        title:'发布成功！',
+        duration:2000
+      })
+      //跳转到投票详情页
+      wx.navigateTo({
+        url: '/pages/aftervotetemplate/aftervotetemplate?voteID='+res._id
+      
+      })
+
+    })
+    .catch(res=>{
+      console.log("投票表单上传失败")
+      //发布失败
+      wx.hideLoading( )
+      wx.showToast({
+      title:'发布失败！',
+      icon:'none',
+      duration:2000
+      })
+    })
+
+  }
+
+    
   
 
   

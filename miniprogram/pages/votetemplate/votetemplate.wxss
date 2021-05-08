@@ -37,3 +37,8 @@
     margin-left: 17px;
     flex-flow: row;
 }
+
+.button{
+    display: flex;
+    margin-top: 10px;
+}

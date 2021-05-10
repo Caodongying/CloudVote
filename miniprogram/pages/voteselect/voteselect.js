@@ -29,7 +29,7 @@ Page({
     // console.log(e)
     var templateID=e.currentTarget.dataset.templateid
     wx.navigateTo({
-      url: '/pages/votetemplate/votetemplate?templateID='+templateID
+      url: '/pages/votetemplate/votetemplate?templateID='+templateID+"&submitType="+1
     });
   }
 

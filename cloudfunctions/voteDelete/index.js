@@ -9,8 +9,27 @@ cloud.init({
 exports.main = async (event, context) => {
   //文字投票删除
   if(event.voteType=='text'){
-    var deleteResult=" " //全局变量
+    var deleteResult=" " 
     await cloud.database().collection('voteText')
+    .doc(event.voteID)
+    .remove()
+    .then(res=>{ //一直执行的这个
+      console.log("删除成功")
+      deleteResult="deleteSuccess"
+    })
+    .catch(res=>{
+      console.log("删除失败")
+      deleteResult="deleteFail"
+    }
+    )
+    return{
+      deleteResult:deleteResult
+    }
+  }
+
+  else if(event.voteType=='selectTemplate'){
+    var deleteResult=" " 
+    await cloud.database().collection('voteSelect')
     .doc(event.voteID)
     .remove()
     .then(res=>{ //一直执行的这个

@@ -1,0 +1,15 @@
+<!--pages/candidateManage/candidateManage.wxml-->
+<van-tabs active="{{active}}" >
+  <van-tab title="待审核" info="{{checkPending}}" >
+   
+  </van-tab>
+
+  <van-tab title="已通过">
+  
+  </van-tab>
+
+  <van-tab title="已拒绝">
+  
+  </van-tab>
+</van-tabs>
+ 

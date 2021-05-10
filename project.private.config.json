@@ -69,7 +69,13 @@
         {
           "name": "pages/aftervotetemplate/aftervotetemplate",
           "pathName": "pages/aftervotetemplate/aftervotetemplate",
-          "query": "voteID=28ee4e3e6096a7f71702113550ed38aa",
+          "query": "voteID=79550af26099135a15bb6983190f77ce",
+          "scene": null
+        },
+        {
+          "name": "pages/candidateManage/candidateManage",
+          "pathName": "pages/candidateManage/candidateManage",
+          "query": "voteID=79550af26099193815bd10d430fac620",
           "scene": null
         }
       ]

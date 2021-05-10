@@ -8,7 +8,9 @@
     "pages/votetextfinished/votetextfinished",
     "pages/voteselect/voteselect",
     "pages/votetemplate/votetemplate" ,
-    "pages/aftervotetemplate/aftervotetemplate"
+    "pages/aftervotetemplate/aftervotetemplate",
+    "pages/voteselectshare/voteselectshare",
+    "pages/candidateManage/candidateManage"
   ], 
 
   "usingComponents":{
@@ -24,7 +26,11 @@
     "van-checkbox-group":"/dist/checkbox-group/index",
     "van-checkbox":"/dist/checkbox/index",
     "van-grid":"/dist/grid/index",
-    "van-grid-item":"/dist/grid-item/index"
+    "van-grid-item":"/dist/grid-item/index",
+    "van-tabbar":"/dist/tabbar/index",
+    "van-tabbar-item":"/dist/tabbar-item/index",
+    "van-tab": "/dist/tab/index",
+    "van-tabs": "/dist/tabs/index"
 
   },
 

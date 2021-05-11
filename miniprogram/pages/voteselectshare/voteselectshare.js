@@ -1,66 +1,49 @@
 // pages/voteselectshare/voteselectshare.js
+const app=getApp()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
+    voteID:0,
+    voteRecord:" ",
+    candidateNum:0,//参与选手总人数
+    voteNum:0,//累计投票
+    timeStatus:"",//显示投票进行状态
+    active:0,
+  },
+
+  onLoad(options) {
+    this.setData({
+      voteID:options.voteID
+    })
+    this.getVoteRecord()
+    this.setStatus()
+  },
+
+  getVoteRecord(){
+    let that=this
+    wx.cloud.database().collection('voteSelect')
+      .doc(this.data.voteID)
+      .get()
+      .then(res=>{
+        this.setData({
+          voteRecord:res.data.voteRecord
+        })
+        console.log("获取的投票信息",that.data.voteRecord)
+      })
+      .catch(
+        console.error
+      )
+  },
+
+  setStatus(){
 
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  onTabbarChange(e){
+    this.setData({ 
+      active:e.detail 
+    })
   }
+
+
 })

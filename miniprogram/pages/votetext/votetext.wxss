@@ -22,7 +22,9 @@ page{
     width:10%;
     height: 30px;
 }
-
+.minus-icon{
+    margin-right: 13px;
+}
 .currentDT {
     text-align: right;
 }

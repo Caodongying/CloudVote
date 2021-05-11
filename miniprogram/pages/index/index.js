@@ -14,14 +14,13 @@ Page({
 
   onLoad(){
     console.log(app.globalData.userInfo)
+  
   },
   
   onShow() {
     searchKey = '' //每次返回首页时，清空搜索词
   },
-
   //搜索投票项
-
   //Step1-获取用户输入的搜索词
   getSearchKey(e) {
     searchKey = e.detail.value

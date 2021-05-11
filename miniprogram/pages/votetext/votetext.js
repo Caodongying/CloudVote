@@ -29,7 +29,7 @@ Page({
       _startDate:"",//结束日期的开始范围
       isMultiVote:false, //是否为多选投票*
       minVoteNum:1,
-      maxVoteNum:"",
+      maxVoteNum:"1",
       //isNumVisible:false, //投票数量是否可见*
       isRankVisible:false, //排行榜是否可见*
       isAnonymous:false //是否匿名*
@@ -144,7 +144,7 @@ Page({
 
   addOption(){  //这是正确的写法
     let _voteOption=this.data.voteRecord.voteOption
-    _voteOption.push({"content":" " })
+    _voteOption.push({"content":"" })
     this.setData({
       ['voteRecord.voteOption']:_voteOption
     })
@@ -170,7 +170,7 @@ Page({
     console.log("要取消的下标：",index) 
     let _voteOption=this.data.voteRecord.voteOption
     // console.log("删除前的数组voteOption:",this.data.voteRecord.voteOption)
-    console.log("删除前的数组_voteOption:",_voteOption)
+    console.log("删除前的数组_voteOption:",this.data.voteRecord.voteOption)
     _voteOption.splice(index,1)
     console.log("删除后的数组_voteOption",_voteOption)
     this.setData({
@@ -283,6 +283,7 @@ Page({
     this.setData({
       ['voteRecord.isMultiVote']:e.detail
     })
+    
   },
 
   setMinVoteNum(e){

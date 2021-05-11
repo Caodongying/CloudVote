@@ -33,13 +33,13 @@
         {
           "name": "pages/aftervotetext/aftervotetext",
           "pathName": "pages/aftervotetext/aftervotetext",
-          "query": "voteID=79550af26090ffeb13f7430b1c7b0d2e",
+          "query": "voteID=79550af260912efb140d62f7413fc8a8",
           "scene": null
         },
         {
           "name": "pages/votetextshare/votetextshare",
           "pathName": "pages/votetextshare/votetextshare",
-          "query": "voteID=79550af26090ffeb13f7430b1c7b0d2e",
+          "query": "voteID=cbddf0af609a57c107c7ea3a38c44739",
           "scene": null
         },
         {
@@ -51,7 +51,7 @@
         {
           "name": "pages/votetextfinished/votetextfinished",
           "pathName": "pages/votetextfinished/votetextfinished",
-          "query": "",
+          "query": "voteID=79550af26099193815bd10d430fac620",
           "scene": null
         },
         {
@@ -69,12 +69,18 @@
         {
           "name": "pages/aftervotetemplate/aftervotetemplate",
           "pathName": "pages/aftervotetemplate/aftervotetemplate",
-          "query": "voteID=79550af26099135a15bb6983190f77ce",
+          "query": "voteID=79550af26099193815bd10d430fac620",
           "scene": null
         },
         {
           "name": "pages/candidateManage/candidateManage",
           "pathName": "pages/candidateManage/candidateManage",
+          "query": "voteID=79550af26099193815bd10d430fac620",
+          "scene": null
+        },
+        {
+          "name": "pages/voteselectshare/voteselectshare",
+          "pathName": "pages/voteselectshare/voteselectshare",
           "query": "voteID=79550af26099193815bd10d430fac620",
           "scene": null
         }

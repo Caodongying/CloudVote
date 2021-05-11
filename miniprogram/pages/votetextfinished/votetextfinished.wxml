@@ -5,6 +5,4 @@
 </view>
 <text class="finishedText">投票成功！</text>
 
-<text wx:if="{{!voteRecord.isRankVisible}}" class="warning">由于投票发布者的设置，本投票排行榜不可见</text>
-
-<!-- 下面是排行榜 还不会做 -->
+<!-- <text wx:if="{{!voteRecord.isRankVisible}}" class="warning">由于投票发布者的设置，本投票排行榜不可见</text> -->

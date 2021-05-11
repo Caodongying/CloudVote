@@ -22,14 +22,54 @@
 }
 
 .numLimit{
-    margin:5px 5px 5px 130px
+    position: absolute;
+    right:10px;
 }
 
 .optionItem{
     margin:10px 0px 0px 3px
 }
 
-.button{
+.button1{
     display: flex;
     margin-top: 30px;
+}
+
+.button2{
+    display: flex;
+    margin-top: 10px;
+}
+
+.rankListNote{
+    font-weight: bolder;
+    font-size: 14px;
+    color:red;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    margin: 8px 0px;
+}
+
+.rank{
+    margin: 0px 10px 0px 15px;
+    font-weight: bolder;
+}
+
+.content{
+    margin-right: 30rpx;
+    width:550rpx;
+    display: inline-block;
+    /* 解决设置inline-block后与行内其他元素不在同一水平线的问题 */
+    vertical-align:top;
+    white-space:nowrap;
+    /* 超出隐藏 */
+    overflow:hidden;
+    /*超出显示为省略号*/
+    text-overflow:ellipsis;
+}
+
+.num{
+    position: absolute;
+    right:10px;
+    text-align:right
 }

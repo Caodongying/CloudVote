@@ -4,6 +4,8 @@ Page({
   data: {
     voteID:0,
     voteRecord:" ",
+    orderedRankList:" ",
+    active:0
   },
 
  
@@ -11,27 +13,57 @@ Page({
   onLoad(options){ //获取页面跳转时传递得到的参数
     //console.log("获取的_id为：",options)
     this.setData({
-      voteID:options.voteID,
-      voteRecord:wx.getStorageSync('voteRecord')
+      voteID:options.voteID
     })
   // var xx=wx.getStorageInfoSync()
   // console.log("存储区",xx)
-   // getRankList()
+    this.getVoteRecord()
+    this.getRankList()
+  },
+
+  getVoteRecord(){
+    let that=this
+    wx.cloud.database().collection('voteText')
+      .doc(this.data.voteID)
+      .get()
+      .then(res=>{
+        this.setData({
+          voteRecord:res.data.voteRecord
+        })
+        console.log("获取的投票信息",that.data.voteRecord)
+      })
+      .catch(
+        console.error
+      )
   },
 
   //获取排行榜
   //思路：统计voteTextInfo数据库，将排好序的optionIndex保存在一个数组中。遍历数组，循环展示排行项
   //选择指定的voteID，计算所有options的票数，并排序（不改变原数据库），返回optionIndex数组
   getRankList(){
-    var orderedRankList=""
-    orderedRankList=wx.cloud.database().collection('voteTextInfo')
-      .where({
+    const db=wx.cloud.database()
+    const $=db.command.aggregate
+    db.collection('voteTextInfo')
+      .aggregate()
+      .match({
         voteID:this.data.voteID
       })
-      .groupby({
-
+      .group({
+        _id:'$optionIndex',
+        sumOptions:$.sum(1)
       })
-      .orderBy('投票数', 'desc')
+      .sort({
+        sumOptions:-1
+      })
+      .end()
+      .then(res => {
+        // console.log(res)
+        this.setData({
+          orderedRankList:res.list
+        })
+        console.log("查询结果",this.data.orderedRankList)
+      })
+      .catch(err => console.error(err))
   },
 
   // getVoteRecord(){
@@ -70,7 +102,7 @@ Page({
             console.log(res)
             var deleteResult=res.result.deleteResult
             //删除成功
-            if(deleteResult=="deleteSuccess"){
+            if(deleteResult==2){
               //弹窗未显示
               wx.showToast({
                 title:'删除成功！',

@@ -7,13 +7,16 @@ Page({
    */
   data: {
     openID:0,
-    voteID:"79550af26090ffeb13f7430b1c7b0d2e",//值应为0，这里是为了方便测试，之后要修改
+    voteID:" ",//值应为0，这里是为了方便测试，之后要修改
     userInfo:null,
     voteStatus:"", 
     voteRecord:"",
     anonymousStatus:"", //匿名状态
     multiStatus:"",//多选状态
-    optionVoted:[]//选中的投票项
+    optionVoted:[],//选中的投票项
+    isFirst:true,//是否是第一次投票
+    showRankList:false,
+    orderedRankList:""
   },
 
   /**
@@ -21,7 +24,7 @@ Page({
    */
    onLoad(options){ //获取页面跳转时传递得到的参数
     //这句之后要注释掉，仅仅为了测试
-    app.globalData.userInfo= wx.getStorageSync('userInfo',this.data.userInfo)
+    // app.globalData.userInfo= wx.getStorageSync('userInfo',this.data.userInfo)
     this.setData({
       voteID:options.voteID,
       userInfo:app.globalData.userInfo
@@ -31,6 +34,8 @@ Page({
     // console.log(this.data.userInfo.avatarUrl)
     this.getVoteRecord(this.setStatus)
     this.getOpenID()
+    this.judgeIsFirst()
+    this.getRankList()
   },
 
   //其实在app.js中已定义getOpenID，但是由于js异步的问题，无法在then函数中直接返回值
@@ -51,6 +56,54 @@ Page({
       }
     })
   },
+
+  getRankList(){
+    const db=wx.cloud.database()
+    const $=db.command.aggregate
+    db.collection('voteTextInfo')
+      .aggregate()
+      .match({
+        voteID:this.data.voteID
+      })
+      .group({
+        _id:'$optionIndex',
+        sumOptions:$.sum(1)
+      })
+      .sort({
+        sumOptions:-1
+      })
+      .end()
+      .then(res => {
+        // console.log(res)
+        this.setData({
+          orderedRankList:res.list
+        })
+        console.log("查询结果",this.data.orderedRankList)
+      })
+      .catch(err => console.error(err))
+  },
+
+  //判断是否是第一次投票，需要借助数据库
+  judgeIsFirst(){
+    const db=wx.cloud.database()
+    // const _=db.command
+    db.collection('voteTextInfo').where({
+      openid:this.data.openid,
+      voteID:this.data.voteID
+    })
+    .get( )
+    .then(res=>{
+      if(res.data.length>0){//已经投票
+        this.setData({
+          isFirst:false,
+          // showRankList:true
+        })
+        
+      }
+    })
+    .catch(console.error)
+    
+  },
   
   getVoteRecord(callback){
     let voteRecord=" "
@@ -58,7 +111,7 @@ Page({
       .doc(this.data.voteID)
       .get()
       .then(res=>{
-        console.log("查询结果为：",res.data.voteRecord)
+        // console.log("查询结果为：",res.data.voteRecord)
         voteRecord=res.data.voteRecord
         this.setData({
           voteRecord:voteRecord
@@ -136,7 +189,61 @@ Page({
     
   },
 
+  viewRankList(){
+    //排行榜不可见
+    if(!this.data.voteRecord.isRankVisible){
+      wx.showToast({
+        title:"由于发布者设置，本排行榜不公开！",
+        icon:"none",
+        duration:2000
+      })
+      return
+    }
+    if(this.data.isFirst){
+      wx.showToast({
+        title:"投票后才能查看排行榜！",
+        icon:"none",
+        duration:2000
+      })
+      return
+    }
+    //可以查看排行榜
+    this.setData({
+      showRankList:true
+    })
+    
+  },
+
   optionSubmit(){
+    //判断是否在投票有效期内
+    if(this.data.voteStatus=="投票已结束"){
+      wx.showToast({
+        title: "投票已结束！",
+        icon:'none',
+        duration:2000
+      })
+      return false
+    }
+    else if(this.data.voteStatus=="投票还未开始"){
+      wx.showToast({
+        title: "投票还未开始",
+        icon:'none',
+        duration:2000
+      })
+      return false
+    }
+    
+    //判断是否已经投过
+    if(!this.data.isFirst){
+      wx.showToast({
+        title:"您已投票，不可以再投！",
+        icon:"none",
+        duration:2000
+      })
+      return false
+    }
+
+    
     //验证是否满足最小投票数要求
     let optionnVotedNum=this.data.optionVoted.length
     if(optionnVotedNum<this.data.voteRecord.minVoteNum){
@@ -169,6 +276,9 @@ Page({
         }
       })
       .then(res=>{
+        // this.setData({
+        //   isFirst:false
+        // })
         wx.hideLoading( )
           //跳转到投票详情页
         wx.navigateTo({

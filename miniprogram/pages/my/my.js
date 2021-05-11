@@ -21,6 +21,15 @@ Page({
     }
   },
 
+  // delAllVoteTextInfo(){
+  //   const db=wx.cloud.database()
+  //   const _=db.command
+  //   db.collection('voteTextInfo').where({
+  //     voteID:_.exists(true)
+  //   }).remove()
+  //   .then(res=>{console.log("删除全表",res)})
+  // },
+
   onGetUsrProfile(e){
     // console.log("按下了按键",e);
     wx.getUserProfile({
@@ -35,6 +44,7 @@ Page({
         })
         user.openid = app.globalData.openid;
         app.globalData.userInfo=this.data.userInfo
+        // this.delAllVoteTextInfo()
       },
       fail: res => {
         console.log("获取用户信息失败", res)

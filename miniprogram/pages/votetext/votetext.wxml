@@ -16,18 +16,18 @@
     <van-cell-group title="选项管理">
         <view wx:for="{{voteRecord.voteOption}}" wx:key="index">
             <!-- <van-field left-icon="/images/minus.jpeg"  clearable bind:input="optionContent" bind:click-icon="deleteOption" data-index="{{index}}" /> -->
-            <van-field clearable bind:input="optionContent" data-index="{{index}}" >
-                <van-icon name="/images/minus.jpeg" slot="left-icon" bind:tap="deleteOption" data-index="{{index}}"/>
+            <van-field clearable bind:input="optionContent" type="text" data-index="{{index}}" value="{{item.content}}">
+                <van-icon class="minus-icon" name="/images/minus.jpeg" slot="left-icon" bind:tap="deleteOption" data-index="{{index}}"/>
             </van-field>
 
             <!-- <view class="rowFlex">
-                <image class="minusImg" src="/images/minus.jpeg" wx:if="{{showMinus}}" bindtap="deleteOption"  data-optionindex="{{index}}"/>
+                <image class="minusImg" src="/images/minus.jpeg" bindtap="deleteOption"  data-optionindex="{{index}}"/>
                 <input class="input" type="text"  bindinput="optionContent" data-optionindex="{{index}}"/>
             </view> -->
         </view>
 
         <view>
-            <image class="plusImg" bindtap="addOption" src="/images/plus.jpg" wx:if="{{showPlus}}" />
+            <image class="plusImg" bindtap="addOption" src="/images/plus.jpg" />
             <text bindtap="addOption">添加选项</text>
         </view>
     </van-cell-group>    

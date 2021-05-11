@@ -1,2 +1,26 @@
 <!--pages/voteselectshare/voteselectshare.wxml-->
-<text>pages/voteselectshare/voteselectshare.wxml</text>
+<image src="{{voteRecord.cover}}" class="cover"/>
+<view class="voteTitle">{{voteRecord.title}}</view>
+
+<view class="timeInfo">
+    <text class="timetop-Info">{{timeStatus}}234123423</text>
+
+</view>
+
+<view class="totalInfo">
+    <view class="left-Info">
+        <text class="info-num">{{candidateNum}}</text>
+        <text class="info-title">参与选手</text>
+    </view>
+
+    <view class="right-Info">
+        <text class="info-num">{{voteNum}}</text>
+        <text class="info-title">总票数</text>
+    </view>
+</view>
+
+<van-tabbar active="{{active}}" fixed active-color="coral" bind:change="onTabbarChange">
+  <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+  <van-tabbar-item icon="fire">排行榜</van-tabbar-item>
+  <van-tabbar-item icon="description">详情</van-tabbar-item>
+</van-tabbar>

@@ -6,22 +6,48 @@
     <van-cell title="投票简介：{{voteRecord.description}}"/>
 </van-cell-group>
 
+<van-cell-group title="投票规则">
+    <view class="moreInfo">
+        <text wx:if="{{voteRecord.isMultiVote}}" decode="{{true}}">&nbsp;&nbsp;可多选({{voteRecord.minVoteNum}}-{{voteRecord.maxVoteNum}}个)</text>
+        <text wx:else>不可多选</text>
+        <text wx:if="{{voteRecord.isAnonymous}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;匿名投票</text>
+        <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;实名投票</text>
+        <text wx:if="{{voteRecord.isRankVisible}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜公开</text>
+        <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜不公开</text>
+    </view>
+</van-cell-group>
 
-<view class="moreInfo">
-    <text wx:if="{{voteRecord.isMultiVote}}" decode="{{true}}">&nbsp;&nbsp;可多选({{voteRecord.minVoteNum}}-{{voteRecord.maxVoteNum}}个)</text>
-    <text wx:else>不可多选</text>
-    <text wx:if="{{voteRecord.isAnonymous}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;匿名投票</text>
-    <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;实名投票</text>
-    <text wx:if="{{voteRecord.isRankVisible}}" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜公开</text>
-    <text wx:else decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;排行榜不公开</text>
-</view>
 
-<!-- 排行榜 -->
-<view class="rankList">
-    <image class="rankImage" src="/images/rankListHead.jpg"/>
-</view>
- 
+<van-cell-group title="选项展示">
+<!-- 选项展示 -->
+    <van-tabs active="{{active}}" >
+    <van-tab class="tab" title="排行榜">
+         <!-- 排行榜 -->
+        <text class="rankListNote">本排行榜不显示0票选项</text>
+        <view class="rankList">
+            <!-- <image class="rankImage" src="/images/rankListHead.jpg"/> -->
+            <view wx:for="{{orderedRankList}}" wx:key="index">
+                <text class="rank">{{index+1}}</text>
+                <text class="content">{{voteRecord.voteOption[item._id].content}}</text>
+                <text class="num">{{item.sumOptions}}票</text>
+            </view>
+        </view>
+    </van-tab>
+    <van-tab class="tab" title="全部">
+        <text class="rankListNote">展示所有选项，含0票选项</text>
+        <view wx:for="{{voteRecord.voteOption}}" wx:key="index">
+            <text class="rank">{{index+1}}</text>
+            <text class="content">{{item.content}}</text>
+        </view>
+    </van-tab>
+    </van-tabs>
+
+
+   
+
+</van-cell-group>
 <!-- 详情里有票数排行，所有信息的展示 -->
-<button bindtap="deleteVote">删除投票</button>
-<button  open-type="share">分享投票</button>
-
+<view class="twoButtons">   
+    <van-button class="_button" bindtap="deleteVote" size="small" color="coral">删除投票</van-button>  
+    <van-button  class="_button" open-type="share" size="small" color="coral">分享投票</van-button>
+</view>

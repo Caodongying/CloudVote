@@ -9,11 +9,26 @@ Page({
 
   onLoad(options) {
     this.setData({
-      voteID:options.voteID,
-      voteRecord:wx.getStorageSync('voteRecord')
+      voteID:options.voteID
     })
+    this.getVoteRecord()
   },
 
+  getVoteRecord(){
+    let that=this
+    wx.cloud.database().collection('voteSelect')
+      .doc(this.data.voteID)
+      .get()
+      .then(res=>{
+        this.setData({
+          voteRecord:res.data.voteRecord
+        })
+        console.log("获取的投票信息",that.data.voteRecord)
+      })
+      .catch(
+        console.error
+      )
+  },
 
   //编辑-只有在报名开始前才能修改
   voteEdit(){

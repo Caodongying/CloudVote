@@ -3,9 +3,11 @@
 <van-cell-group title="基本信息">
     <van-cell title="投票名称：{{voteRecord.title}}"></van-cell>
     <van-cell title="投票简介：{{voteRecord.description}}"/>
+    <van-cell title="投票开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}"/>
+    <van-cell title="投票结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}" />
     <view wx:if="{{voteRecord.isEnroll}}">
-        <van-cell title="开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}" border="false" center="true"/>
-        <van-cell title="结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}" />
+        <van-cell title="报名开始时间：{{voteRecord.dateBegin1}} {{voteRecord.timeBegin1}}"/>
+        <van-cell title="报名结束时间：{{voteRecord.dateEnd1}} {{voteRecord.timeEnd1}}" />
     </view>
 </van-cell-group>
 

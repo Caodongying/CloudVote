@@ -10,7 +10,9 @@
     "pages/votetemplate/votetemplate" ,
     "pages/aftervotetemplate/aftervotetemplate",
     "pages/voteselectshare/voteselectshare",
-    "pages/candidateManage/candidateManage"
+    "pages/candidateManage/candidateManage",
+    "pages/selectenroll/selectenroll"
+    
   ], 
 
   "usingComponents":{

@@ -64,7 +64,7 @@
 
 
             <van-cell title="是否上传参赛视频"  >
-                <van-switch checked="{{voteRecord.isNeedVedio}}" bind:change="setNeedVedio" size="20" />
+                <van-switch checked="{{voteRecord.isNeedVideo}}" bind:change="setNeedVideo" size="20" />
             </van-cell>
 
             <!-- <view class="threeOptions" > 

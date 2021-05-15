@@ -1,0 +1,31 @@
+<!--pages/selectenroll/selectenroll.wxml-->
+<form bindsubmit="candidateSubmit">
+    <view class="candidatePic">
+        <text class="noteText">选手头像：</text>
+        <van-image bind:tap="candidateAvatar" class="userImage" src="{{candidateRecord.candidateAvatar}}" round="true" fit="cover" width="40px" height="40px"/>
+    </view>
+
+    <van-field label="选手名称："  name="title" bind:input="onCandidateName" />
+    <van-field label="参赛介绍："  name="description" bind:input="onCandidateDescribe"/>
+    <van-field label="手机号："  name="tel" bind:input="onCandidateTel" wx:if="voteRecord.isNeedTel"/>
+    
+    <view class="note">参赛图片（最多可以上传{{voteRecord.maxImg}}张）</view>
+    <view wx:if="{{voteRecord.isNeedImg}}" class="pictures">  
+        <block wx:for="{{candidateRecord.picture}}" wx:key="index"> 
+            <van-image class="picture-item" src="{{item}}" bindlongpress="deleteImage" data-index="{{index}}" fit="cover" width="80px" height="80px"/> 
+            <!-- <van-image class="deleteIcon" src="/images/delete.png" width="20px" height="20px"  />   -->
+        </block>
+        <van-image bind:tap="onAddPicture" class="picture-item" src="{{addPic}}" fit="cover" width="80px" height="80px"/>   
+    </view>
+
+    <view wx:if="{{voteRecord.isNeedVideo}}">
+         <view class="note">参赛视频</view>
+         <van-image wx:if="{{!tempVideoPath}}" bind:tap="onAddVideo" class="pictures1" src="{{addVideo}}" fit="cover" width="80px" height="80px"/>   
+        <view class="prew_video" wx:if="{{tempVideoPath}}">
+            <video bindfullscreenchange="bindVideoScreenChange" src="{{tempVideoPath}}" bindlongpress="deleteVideo"></video>
+        </view>
+    </view>
+
+    <view class="deleteNote">提示：视频和图片均可以通过长按取消</view>
+    <van-button color="coral" class="button" form-type="submit" size="small">确认报名</van-button>
+</form>

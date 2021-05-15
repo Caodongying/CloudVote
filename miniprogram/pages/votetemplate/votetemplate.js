@@ -48,7 +48,7 @@ Page({
       isEnroll:false,//是否开放报名
       isNeedTel:false,//参赛者是否要填写手机号
       isNeedImg:false,//参赛者是否需要上传图片
-      isNeedVedio:false,//参赛者是否需要上传视频
+      isNeedVideo:false,//参赛者是否需要上传视频
       maxImg:"1",//参赛者最多可以上传的图片数量
     }
   },
@@ -574,9 +574,9 @@ Page({
      })
   },
 
-  setNeedVedio(e){
+  setNeedVideo(e){
     this.setData({
-      ['voteRecord.isNeedVedio']:e.detail
+      ['voteRecord.isNeedVideo']:e.detail
      })
   },
 

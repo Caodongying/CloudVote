@@ -30,7 +30,7 @@ Page({
       )
   },
 
-  //编辑-只有在报名开始前才能修改
+  //编辑-只有在报名和投票开始前才能修改
   voteEdit(){
     var canEdit=false
     let enrollDate=this.data.voteRecord.dateBegin1 //报名开始日期
@@ -109,7 +109,7 @@ Page({
             console.log(res)
             var deleteResult=res.result.deleteResult
             //删除成功
-            if(deleteResult=="deleteSuccess"){
+            if(deleteResult=="2"){
               //弹窗未显示
               wx.showToast({
                 title:'删除成功！',
@@ -155,6 +155,12 @@ Page({
   candidateManage(){
     wx.navigateTo({
       url:'/pages/candidateManage/candidateManage?voteID='+this.data.voteID
+    })
+  },
+
+  showRankList(){
+    wx.navigateTo({
+      url:'/pages/voteSelectRank/voteSelectRank?voteID='+this.data.voteID
     })
   }
 })

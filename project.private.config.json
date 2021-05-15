@@ -83,6 +83,12 @@
           "pathName": "pages/voteselectshare/voteselectshare",
           "query": "voteID=79550af26099193815bd10d430fac620",
           "scene": null
+        },
+        {
+          "name": "pages/selectenroll/selectenroll",
+          "pathName": "pages/selectenroll/selectenroll",
+          "query": "voteID=79550af26099193815bd10d430fac620",
+          "scene": null
         }
       ]
     }

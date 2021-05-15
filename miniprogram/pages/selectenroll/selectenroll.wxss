@@ -1,0 +1,63 @@
+/* pages/selectenroll/selectenroll.wxss */
+.candidatePic{
+    display: flex;
+    flex-flow: row;
+}
+.noteText{
+    font-size: 14px;
+    margin: 20px 0 10px 17px;
+    color:rgb(87, 86, 86);
+    /* font-weight: bolder; */
+}
+
+.userImage{
+    margin: 10px 0;
+    position: absolute;
+    left:100px;
+}
+
+.pictures{
+    margin-left: 23px;
+}
+
+.pictures1{
+    margin-left: 28px;
+}
+.note{
+    margin: 10px 0 10px 17px;
+    font-weight: bolder;
+    font-size: 14px;
+    color:rgb(87, 86, 86);
+}
+
+.imgNote{
+    margin-bottom: 10px;
+}
+.picture-item{
+    margin:5px;
+    /* position: relative; */
+}
+
+.button{
+    display: flex;
+    margin-top: 10px;
+}
+/* .deleteIcon{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+} */
+
+.prew_video{
+    display: flex;
+    align-items: center; /*垂直居中*/
+    justify-content: center; /*居中对齐*/
+    position: relative;
+    background-color: #fff;
+}
+
+.deleteNote{
+    margin: 10px 0 10px 17px;
+    font-size: 14px;
+    color:rgb(241, 89, 89);
+}

@@ -1,26 +1,72 @@
 <!--pages/voteselectshare/voteselectshare.wxml-->
-<image src="{{voteRecord.cover}}" class="cover"/>
-<view class="voteTitle">{{voteRecord.title}}</view>
 
-<view class="timeInfo">
-    <text class="timetop-Info">{{timeStatus}}234123423</text>
+<van-tabs active="{{active2}}" class="bottomTab" line-height="0px" sticky="true" offset-top="0px" title-active-color="coral">
+  <!-- 首页 -->
+  <van-tab title="首页">
+    <image src="{{voteRecord.cover}}" class="cover"/>
+    <view class="voteTitle">{{voteRecord.title}}</view>
 
-</view>
-
-<view class="totalInfo">
-    <view class="left-Info">
-        <text class="info-num">{{candidateNum}}</text>
-        <text class="info-title">参与选手</text>
+    <view class="timeInfo">
+        <text class="timetop-Info">{{timeStatus}}</text>
     </view>
 
-    <view class="right-Info">
-        <text class="info-num">{{voteNum}}</text>
-        <text class="info-title">总票数</text>
-    </view>
-</view>
+    <view class="totalInfo">
+        <view class="left-Info">
+            <text class="info-num">{{candidateNum}}</text>
+            <text class="info-title">参与选手</text>
+        </view>
 
-<van-tabbar active="{{active}}" fixed active-color="coral" bind:change="onTabbarChange">
-  <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-  <van-tabbar-item icon="fire">排行榜</van-tabbar-item>
-  <van-tabbar-item icon="description">详情</van-tabbar-item>
-</van-tabbar>
+        <view class="right-Info">
+            <text class="info-num">{{voteNum}}</text>
+            <text class="info-title">总票数</text>
+        </view>
+    </view>
+
+    <van-button class="button" color="coral" size="small" bind:click="onEnroll"> 我要报名</van-button>
+
+    <view class="searchRoot">
+        <input class="searchInput" placeholder="搜索编号或选手名称" bindconfirm="goSearch" confirm-type="search" bindinput="goSearchKey"/>
+        <image class="searchImg" src="/images/search.png" bindtap="goSearch"></image>
+    </view>
+
+    <van-tabs active="{{active1}}">
+    <van-tab title="编号排序">
+
+
+    </van-tab>
+    <van-tab title="最近参与">
+        
+
+    </van-tab>
+    </van-tabs>
+  </van-tab>
+
+  <!-- 排行榜 -->
+  <van-tab title="排行榜"></van-tab>
+
+  <!-- 详情 -->
+  <van-tab title="详情">
+    <van-cell-group title="基本信息">
+        <van-cell title="投票名称：{{voteRecord.title}}"></van-cell>
+        <van-cell title="投票简介：{{voteRecord.description}}"/>
+        <van-cell title="投票开始时间：{{voteRecord.dateBegin}} {{voteRecord.timeBegin}}"/>
+        <van-cell title="投票结束时间：{{voteRecord.dateEnd}} {{voteRecord.timeEnd}}" />
+        <view wx:if="{{voteRecord.isEnroll}}">
+            <van-cell title="报名开始时间：{{voteRecord.dateBegin1}} {{voteRecord.timeBegin1}}"/>
+            <van-cell title="报名结束时间：{{voteRecord.dateEnd1}} {{voteRecord.timeEnd1}}" />
+        </view>
+    </van-cell-group>
+
+    <view class="moreInfo">
+        <view>
+            <text wx:if="{{voteRecord.isMultiVote}}">可多选(至多{{voteRecord.maxVoteNum}}个)</text>
+            <text wx:else>不可多选</text>
+        </view>    
+    </view>
+
+    <van-cell-group title="主办方信息" wx:if="{{voteRecord.isShowSponsor}}">
+        <van-cell title="主办方名字" value="{{voteRecord.sponsorName}}"/>
+        <van-cell title="主办方号码" value="{{voteRecord.sponsorTel}}"/>
+    </van-cell-group>
+  </van-tab>
+</van-tabs>

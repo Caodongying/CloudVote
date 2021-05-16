@@ -22,7 +22,8 @@
         </view>
     </view>
 
-    <van-button class="button" color="coral" size="small" bind:click="onEnroll"> 我要报名</van-button>
+    <van-button wx:if="{{!hasEnrolled}}" class="button" color="coral" size="small" bind:click="onEnroll"> 我要报名</van-button>
+    <van-button wx:else class="button" color="coral" size="small" bind:click="onCheckEnrollInfo"> 查看报名信息</van-button>
 
     <view class="searchRoot">
         <input class="searchInput" placeholder="搜索编号或选手名称" bindconfirm="goSearch" confirm-type="search" bindinput="goSearchKey"/>
@@ -31,10 +32,15 @@
 
     <van-tabs active="{{active1}}">
     <van-tab title="编号排序">
-
-
+        <view class="outer">
+            <view wx:for="{{candidateInfo}}" wx:key="index" class="oneCandidate">
+                <van-image class="picture-item" src="{{item.candidateRecord.candidateAvatar}}" bind:tap="candidateDetail" data-index="{{index}}" fit="cover" width="290rpx" height="290rpx"/> 
+                <text class="name" decode="{{true}}">{{index+1}}号&nbsp;&nbsp;&nbsp;{{item.candidateRecord.name}}</text>
+                <text class="voteNum">5票</text>
+            </view>
+        </view>
     </van-tab>
-    <van-tab title="最近参与">
+    <van-tab title="排行榜">
         
 
     </van-tab>
@@ -42,7 +48,7 @@
   </van-tab>
 
   <!-- 排行榜 -->
-  <van-tab title="排行榜"></van-tab>
+  <!-- <van-tab title="排行榜"></van-tab> -->
 
   <!-- 详情 -->
   <van-tab title="详情">

@@ -9,7 +9,8 @@ Page({
       name:"",
       description:"",
       tel:"",
-      video:""
+      video:"",
+      status:1//报名状态，1为待审核，2为审核通过，3为被拒绝。默认状态为待审核
     },
     voteRecord:"",
     addPic:"/images/add.png",
@@ -398,7 +399,6 @@ Page({
       icon:'none',
       duration:2000
       })
-      that.data.uploadFlag=4
     })
   }
   

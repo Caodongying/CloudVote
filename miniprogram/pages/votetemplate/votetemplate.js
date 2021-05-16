@@ -40,7 +40,7 @@ Page({
 
       isMultiVote:false, //是否为多选投票*
       maxVoteNum:"2",
-      isRankVisible:false, //排行榜是否可见*
+      isRankVisible:true, //排行榜是否可见* 此功能废弃，排行榜必须全部可见
       isShowOnBoard:false,//是否展示在主页
       isShowSponsor:false,//是否展示主办方信息
       sponsorName:"",//主办方名字
@@ -526,11 +526,11 @@ Page({
     })
   },
 
-  setRankVisible(e){
-    this.setData({
-     ['voteRecord.isRankVisible']:e.detail
-    })
-  },
+  // setRankVisible(e){
+  //   this.setData({
+  //    ['voteRecord.isRankVisible']:e.detail
+  //   })
+  // },
   
   setShowOnBoard(e){
     this.setData({

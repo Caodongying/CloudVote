@@ -123,9 +123,9 @@
 
         </view>
 
-        <van-cell title="是否公开排行榜"  >
+        <!-- <van-cell title="是否公开排行榜"  >
             <van-switch checked="{{voteRecord.isRankVisible}}" bind:change="setRankVisible" size="20" />
-        </van-cell>
+        </van-cell> -->
 
         <van-cell title="是否在主页展示"  >
             <van-switch checked="{{voteRecord.isShowOnBoard}}" bind:change="setShowOnBoard" size="20" />

@@ -94,3 +94,39 @@
     margin: 10px 0px 15px 16px;
     font-size: 14px;
 }
+
+.outer{
+    width:750rpx;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.oneCandidate{
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    width:330rpx;
+    margin-top:10px;
+    /* padding:0 20rpx 0 20rpx; */
+    background-color: whitesmoke;
+}
+
+.picture-item{
+    margin-top:10px;
+    text-align: center;
+}
+
+.name{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    color:rgb(100, 100, 100)
+}
+
+.voteNum{
+    text-align: center;
+    font-size: 13px;
+    color:rgb(94, 94, 94);
+    margin:2px 0 4px 0;
+}

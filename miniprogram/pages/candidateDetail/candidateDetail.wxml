@@ -1,0 +1,37 @@
+<!--pages/candidateDetail/candidateDetail.wxml-->
+<view class="basicInfo">
+    <van-image class="userImage" src="{{candidateInfo.candidateRecord.candidateAvatar}}" round="true" fit="cover" width="60px" height="60px"/>
+    <text class="userName" decode="{{true}}">{{candidateIndex}}号&nbsp;&nbsp;&nbsp;{{candidateInfo.candidateRecord.name}}</text>
+    <text class="voteName">{{voteRecord.title}}</text>
+</view>
+
+<view class="voteInfo">
+    <view class="oneVoteInfo">
+        <view class="_num">5</view>
+        <view class="_describe">票数</view>
+    </view>
+
+    <view class="oneVoteInfo">
+        <view class="_num">5</view>
+        <view class="_describe">排名</view>
+    </view>
+</view>
+
+<view class="describeInfo">
+    <view class="labelDescription">参赛介绍</view>
+    <view class="candidateDescription">{{candidateInfo.candidateRecord.description}}</view>
+</view>
+
+<view class="prew_video" wx:if="{{candidateInfo.candidateRecord.video}}">
+    <video bindfullscreenchange="bindVideoScreenChange" src="{{candidateInfo.candidateRecord.video}}" ></video>
+</view>
+
+<view wx:if="{{candidateInfo.candidateRecord.picture.length!=0}}">
+    <view wx:for="{{candidateInfo.candidateRecord.picture}}" wx:key="index">
+         <image class="picture-item" src="{{item}}" mode="widthFix" /> 
+    </view>
+</view>
+
+<view class="_button">
+    <van-button color="coral" class="button"  size="small" bind:click="voteForCandidate">投上一票</van-button>
+</view>

@@ -1,0 +1,96 @@
+/* pages/candidateDetail/candidateDetail.wxss */
+.basicInfo{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background-color: rgb(238, 238, 238);
+    width:700rpx;
+    margin:30rpx 0rpx 5rpx 25rpx;
+}
+
+.describeInfo{
+    /* background-color: rgb(238, 238, 238); */
+    width:700rpx;
+    margin:30rpx 0rpx 30rpx 25rpx;
+}
+
+.labelDescription{
+    text-align: center;
+    padding: 20rpx 0;
+    font-size: 14px;
+    color: coral;
+}
+
+.candidateDescription{
+    padding:0 30rpx 20rpx 30rpx;
+}
+.userImage{
+    margin: 30rpx 0 15rpx 0;
+}
+
+.userName{
+    font-size: 17px;
+    font-weight: bolder;
+    margin-bottom: 10rpx;
+}
+
+.voteName{
+    font-size:13px;
+    color:coral;
+    margin-bottom: 15rpx;
+}
+
+.voteInfo{
+    width: 700rpx;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin:0 auto
+}
+
+.oneVoteInfo{
+    width:200rpx;
+    margin-top:30rpx;
+    margin-bottom: 30rpx;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+._num{
+    font-size: 17px;
+    color: coral;
+    font-weight: bolder;
+}
+
+._describe{
+    font-size: 13px;
+}
+
+.prew_video{
+    display: flex;
+    align-items: center; /*垂直居中*/
+    justify-content: center; /*居中对齐*/
+    position: relative;
+    background-color: #fff;
+    margin-bottom: 30rpx;
+}
+
+.picture-item{
+    width:700rpx;
+    display: flex;
+    justify-content: center;
+    margin:20rpx 0 0 25rpx;
+}
+
+._button{
+    display: flex;
+    justify-content: center;
+}
+.button{
+    display: flex;
+    position: fixed;
+    bottom:30rpx;  
+    flex-flow: row;
+    
+}

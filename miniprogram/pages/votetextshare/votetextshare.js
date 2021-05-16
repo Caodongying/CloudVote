@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    openID:0,
+    openid:0,
     voteID:" ",//值应为0，这里是为了方便测试，之后要修改
     userInfo:null,
     voteStatus:"", 

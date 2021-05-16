@@ -10,6 +10,8 @@ Page({
     timeStatus:"",//显示投票进行状态
     active1:0,
     active2:0,
+    hasEnrolled:false,//标记用户是否已经报名
+    candidateInfo:[]//所有参赛者
   },
 
   onLoad(options) {
@@ -17,6 +19,52 @@ Page({
       voteID:options.voteID
     })
     this.getVoteRecord(this.setStatus)
+    this.getCandidateNum()
+    this.getCandidate()
+    this.getVoteNum()
+  },
+
+  //获取参赛总人数
+  getCandidateNum(){
+    let that=this
+    const db=wx.cloud.database()
+    db.collection('candidate').aggregate()
+      .match({
+        voteID:that.data.voteID
+      })
+      .count('candidateNum')
+      .end()
+      .then(res=>{
+        if(res.list.length!=0){
+          that.setData({
+            candidateNum:res.list[0].candidateNum
+          })
+        }
+      })
+      .catch(err => console.error(err))
+  },
+
+  //获取所有参赛选手
+  getCandidate(){
+    let that=this
+    const db=wx.cloud.database()
+    db.collection('candidate')
+    .where({
+      voteID:that.data.voteID,
+      ['candidateRecord.status']:1 //已审核通过 之后要改成2
+    })
+    .get()
+    .then(res=>{
+      that.setData({
+        candidateInfo:res.data
+      })
+    })
+    .catch(err => console.error(err))
+  },
+
+  //获取每个参赛选手的票数
+  getVoteNum(){
+
   },
 
   getVoteRecord(callback){
@@ -28,7 +76,7 @@ Page({
         this.setData({
           voteRecord:res.data.voteRecord
         })
-        console.log("获取的投票信息",that.data.voteRecord)
+        // console.log("获取的投票信息",that.data.voteRecord)
         if(typeof callback != "undefined")
           callback();// 执行调用函数
       })
@@ -121,8 +169,27 @@ Page({
       }
 
     }
+
+    //判断是否已经报名过
+    const db=wx.cloud.database()
+    db.collection('candidate').where({
+      _openid:app.globalData.openid,
+      voteID:this.data.voteID
+    })
+    .get( )
+    .then(res=>{
+      if(res.data.length>0){//已经投票
+        this.setData({
+          hasEnrolled:true,
+        })
+        
+      }
+    })
+    .catch(console.error)
   },
 
+
+  //点击“我要报名”
   onEnroll(){
     if(this.data.timeStatus=="报名还未开始"){
       wx.showToast({
@@ -148,5 +215,20 @@ Page({
     
   },
 
+  //点击“查看报名信息”
+  onCheckEnrollInfo(){
+    
+  },
+
+  //查看选手信息
+  candidateDetail(e){
+    let that=this
+    var index=e.currentTarget.dataset.index
+    var candidateInfo=this.data.candidateInfo[index]
+    var candidateID=candidateInfo._openid
+    wx.navigateTo({
+      url:"/pages/candidateDetail/candidateDetail?voteID="+that.data.voteID+"&candidateID="+candidateID+"&index="+index
+    }) 
+  }
 
 })

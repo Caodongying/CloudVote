@@ -11,7 +11,8 @@
     "pages/aftervotetemplate/aftervotetemplate",
     "pages/voteselectshare/voteselectshare",
     "pages/candidateManage/candidateManage",
-    "pages/selectenroll/selectenroll"
+    "pages/selectenroll/selectenroll",
+    "pages/candidateDetail/candidateDetail"
     
   ], 
 

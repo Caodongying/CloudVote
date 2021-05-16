@@ -15,7 +15,8 @@ Page({
     addPic:"/images/add.png",
     addVideo:"/images/video.png",
     imgArr:[],
-    tempVideoPath:""
+    tempVideoPath:"",
+    // uploadFlag:0
   },
 
   onLoad(options) {
@@ -198,16 +199,16 @@ Page({
     wx.chooseVideo({
       sourceType: ['album','camera'],
       maxDuration: 60, 
-      camera: 'back',
-      success(res) {
+      camera: 'back'  
+    })
+    .then(res=> {
         console.log(res)
         that.setData({
           tempVideoPath:res.tempFilePath
         })
-      },
-      fail(res){
-        console.log(res)
-      }
+      })
+    .catch(res=>{
+      console.log(res)
     })
   },
 
@@ -266,13 +267,12 @@ Page({
       return
     }
 
-    
-
-    this.uploadStorage(this.uploadDatabase)
-    
+    this.uploadStorage()  
+    // this.uploadDatabase()
   },
 
-  uploadStorage(callback){
+  uploadStorage(){
+    let promiseArr=[]
     var that=this
     //验证成功
     wx.showLoading({
@@ -283,71 +283,100 @@ Page({
     var timeStamp =""
 
     //上传头像
-    timeStamp = (new Date()).valueOf()
-    wx.cloud.uploadFile({
-      cloudPath: 'candidateAvatars/'+app.globalData.openid+timeStamp+'.jpg',
-      filePath: that.data.candidateRecord.candidateAvatar, 
-    })
-    .then(res => {
-      //封面图地址为云存储中的地址
-      that.setData({
-        ['candidateRecord.candidateAvatar']:res.fileID
-      })
-    })
-    .catch(res => {
-        console.log("失败",res)
-    })
-
-
-    //上传图片至云存储
-    var length=this.data.imgArr.length
-    for(var i=0;i<length;i++){
+    promiseArr.push(new Promise((reslove, reject) => {
+      timeStamp = (new Date()).valueOf()
       wx.cloud.uploadFile({
-      cloudPath: 'candidatePics/'+app.globalData.openid+i+timeStamp+'.png',
-      filePath: that.data.imgArr[i]
+        cloudPath: 'candidateAvatars/'+app.globalData.openid+timeStamp+'.jpg',
+        filePath: that.data.candidateRecord.candidateAvatar, 
       })
       .then(res => {
-          //封面图地址为云存储中的地址
+        //封面图地址为云存储中的地址
         that.setData({
-          // [`candidateRecord.picture[${i}]`]:res.fileID
-          ['candidateRecord.picture']:that.data.candidateRecord.picture.concat(res.fileID)
+          ['candidateRecord.candidateAvatar']:res.fileID,
+          
         })
-        // console.log(that.data.candidateRecord)
+        reslove()
       })
       .catch(res => {
-        console.log("失败",res)
+          console.log("失败",res)
       })
-    }
+    }))
+
+    
+    //上传图片至云存储
+    
+    var length=this.data.imgArr.length
+    var tempImages=[]
+    for(var i=0;i<length;i++){
+      promiseArr.push(new Promise((reslove, reject) => {
+        wx.cloud.uploadFile({
+        cloudPath: 'candidatePics/'+app.globalData.openid+i+timeStamp+'.png',
+        filePath: that.data.imgArr[i]
+        })
+        .then(res => {
+            //封面图地址为云存储中的地址
+          if(i==0){
+            tempImages=res.fileID
+          }
+          else{
+            tempImages=tempImages.concat(res.fileID)
+          }
+          that.setData({
+            // [`candidateRecord.picture[${i}]`]:res.fileID
+            ['candidateRecord.picture']:tempImages
+            
+          }) 
+          reslove()
+          // console.log(that.data.candidateRecord)
+        })
+        .catch(res => {
+          console.log("失败",res)
+        }) 
+      }))
+    } 
+     
+   
 
     //上传视频至云存储
-    if(this.data.tempVideoPath){
-      timeStamp =(new Date()).valueOf() 
-      wx.cloud.uploadFile({
-        cloudPath: 'candidateVideos/'+app.globalData.openid+timeStamp+'.mp4',
-        filePath: that.data.tempVideoPath, // 文件路径
-      })
-      .then(res => {
-        that.setData({
-          ['candidateRecord.video']:res.fileID
+    promiseArr.push(new Promise((reslove, reject) => {
+      if(this.data.tempVideoPath){
+        timeStamp =(new Date()).valueOf() 
+        wx.cloud.uploadFile({
+          cloudPath: 'candidateVideos/'+app.globalData.openid+timeStamp+'.mp4',
+          filePath: that.data.tempVideoPath, // 文件路径
         })
-        console.log("有无",that.data.candidateRecord.video)
-      })
-      .catch(console.error)
-    }
-    if(typeof callback != "undefined")
-      callback();// 执行调用函数
+        .then(res => {
+          that.setData({
+            ['candidateRecord.video']:res.fileID,
+           
+          })
+          reslove()
+          console.log("有无",that.data.candidateRecord.video)
+        })
+        .catch(console.error)
+      }
+    }))
+
+    Promise.all(promiseArr).then(res => {//等数组都做完后做then方法
+      that.uploadDatabase()
+     })
+    // setTimeout(this.uploadDatabase,1000)
+    // if(callback)
+    //   callback();// 执行调用函数
   },
 
   uploadDatabase(){
     let that=this
     //上传报名信息至数据库
+    // while(that.data.uploadFlag!=3){
+    // }
     wx.cloud.database().collection('candidate').add({
       data:{
         candidateRecord:that.data.candidateRecord,
         voteID:that.data.voteID
       }
-     })
-     .then(res=>{
+    })
+    .then(res=>{
       console.log("报名信息上传成功！")
       //发布完成
       wx.hideLoading( )
@@ -359,8 +388,7 @@ Page({
       wx.navigateTo({
         url: '/pages/voteselectshare/voteselectshare?voteID='+that.data.voteID
       })
-
-     })
+    })
     .catch(res=>{
       console.log("报名信息上传失败")
       //发布失败
@@ -370,7 +398,9 @@ Page({
       icon:'none',
       duration:2000
       })
-     })
+      that.data.uploadFlag=4
+    })
   }
+  
  
 })

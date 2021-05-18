@@ -1,70 +1,81 @@
 // pages/candidateManage/candidateManage.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    active:0,
-    checkPendingList:"",//待审核的人
-    checkPendingNum:0,//待审核人数
-    passedList:"",//已通过的人
-    refusedList:"",//被拒绝的人
+    candidateInfo:[],
+    voteID:0
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad(options){
+    this.setData({
+      voteID:options.voteID
+    })
+    console.log("选手管理界面的voteid",this.data.voteID)
+    this.getCandidate()
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  getCandidate(){
+    let that=this
+    const db=wx.cloud.database()
+    db.collection('candidate')
+    .where({
+      voteID:that.data.voteID,
+    })
+    .get()
+    .then(res=>{
+      that.setData({
+        candidateInfo:res.data
+      })
+    })
+    .catch(err => console.error(err))
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  delete(e){
+    let that=this
+    var index=e.currentTarget.dataset.index
+    var deleteResult=""
+    console.log("这里的openid",that.data.candidateInfo[index]._openid)
+    wx.showModal({
+      content: '确定要删除本候选人吗？',
+      cancelText:'取消',
+      confirmText:'确定',
+      success (res) {
+        if (res.confirm) { //确定删除
+          wx.showLoading({
+            title: '正在删除',
+          })
+          wx.cloud.callFunction({
+            name:'deleteCandidate',
+            data:{
+              voteID:that.data.voteID,
+              openid:that.data.candidateInfo[index]._openid 
+            }
+          })
+          .then(res=>{
+            deleteResult=res.result.deleteResult
+            // console.log("删除结果",res.result.deleteResult)
+            // if(deleteResult==2){
+              wx.hideLoading()
+              wx.showToast({
+                title:'删除成功！',
+                duration:1000
+              })
+              that.getCandidate()
+            // }
+            // else{
+            //   wx.hideLoading()
+            //   wx.showToast({
+            //     title:'删除失败！',
+            //     duration:2000,
+            //     icon:"none"
+            //   })
+            // }
+          })
+          .catch(console.error)
+        }
+         else if (res.cancel) { //取消删除
+          console.log('删除操作取消')
+        }
+      }
+    })
   }
 })

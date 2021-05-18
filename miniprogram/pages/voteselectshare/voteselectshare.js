@@ -96,7 +96,7 @@ Page({
     db.collection('candidate')
     .where({
       voteID:that.data.voteID,
-      ['candidateRecord.status']:1 //已审核通过 之后要改成2
+      // ['candidateRecord.status']:1 //已审核通过 之后要改成2
     })
     .get()
     .then(res=>{

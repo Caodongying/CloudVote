@@ -1,15 +1,9 @@
 <!--pages/candidateManage/candidateManage.wxml-->
-<van-tabs active="{{active}}" >
-  <van-tab title="待审核" info="{{checkPending}}" >
-    fff
-  </van-tab>
-
-  <van-tab title="已通过">
-  
-  </van-tab>
-
-  <van-tab title="已拒绝">
-  
-  </van-tab>
-</van-tabs> 
+ <view class="outer">
+    <view wx:for="{{candidateInfo}}" wx:key="index" class="oneCandidate">
+        <van-image class="picture-item" src="{{item.candidateRecord.candidateAvatar}}"  fit="cover" width="290rpx" height="290rpx"/> 
+        <text class="name" decode="{{true}}">{{index+1}}号&nbsp;&nbsp;&nbsp;{{item.candidateRecord.name}}</text>
+        <view class="voteNum" bind:tap="delete" data-index="{{index}}">删除</view>
+    </view>
+</view>
  

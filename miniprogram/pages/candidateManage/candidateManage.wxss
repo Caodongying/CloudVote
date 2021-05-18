@@ -1,1 +1,42 @@
 /* pages/candidateManage/candidateManage.wxss */
+.outer{
+    width:750rpx;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.oneCandidate{
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    width:330rpx;
+    margin-top:10px;
+    /* padding:0 20rpx 0 20rpx; */
+    background-color: whitesmoke;
+    justify-content: center;
+}
+
+.picture-item{
+    margin-top:10px;
+    text-align: center;
+}
+
+.name{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    color:rgb(100, 100, 100);
+    margin-bottom:20rpx;
+}
+
+.voteNum{
+    text-align: center;
+    font-size: 13px;
+    color:rgb(94, 94, 94);
+    margin:0 auto;
+    width:100rpx;
+    border:solid 3px rgb(255, 158, 123);
+    background-color: khaki;
+    border-radius: 10%;
+}

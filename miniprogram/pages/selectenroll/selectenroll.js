@@ -339,9 +339,10 @@ Page({
    
 
     //上传视频至云存储
-    promiseArr.push(new Promise((reslove, reject) => {
-      if(this.data.tempVideoPath){
-        timeStamp =(new Date()).valueOf() 
+   
+    if(this.data.tempVideoPath){
+      timeStamp =(new Date()).valueOf() 
+      promiseArr.push(new Promise((reslove, reject) => {
         wx.cloud.uploadFile({
           cloudPath: 'candidateVideos/'+app.globalData.openid+timeStamp+'.mp4',
           filePath: that.data.tempVideoPath, // 文件路径
@@ -349,15 +350,14 @@ Page({
         .then(res => {
           that.setData({
             ['candidateRecord.video']:res.fileID,
-           
+            
           })
           reslove()
           console.log("有无",that.data.candidateRecord.video)
         })
         .catch(console.error)
-      }
-    }))
-
+      }))
+    }
     Promise.all(promiseArr).then(res => {//等数组都做完后做then方法
       that.uploadDatabase()
      })

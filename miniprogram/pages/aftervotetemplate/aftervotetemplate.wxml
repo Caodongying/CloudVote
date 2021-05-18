@@ -42,7 +42,7 @@
 
 <van-grid class="operate" column-num="4" clickable gutter="5px" square border>
   <van-grid-item icon="friends-o" text="选手" bind:click="candidateManage"/>
-  <van-grid-item icon="fire-o" text="排行榜" bind:click="showRankList"/>
+  <van-grid-item icon="hot-o" text="查看" bind:click="showPage"/>
   <van-grid-item icon="edit" text="编辑" bind:click="voteEdit"/>
   <van-grid-item icon="delete-o" text="删除" bind:click="voteDelete"/>
   <!-- <van-grid-item icon="share-o" open-type="share" text="分享"/> -->

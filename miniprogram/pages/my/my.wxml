@@ -1,5 +1,11 @@
-<button type="primary" bindtap="onGetUsrProfile" wx:if="{{showLogOnButton}}"> 登录 </button>
-<view class="afterLogOn" wx:else>
-    <image  src="{{userInfo.avatarUrl}}" class="userAvatar"/>
-    <text class="userNickName">{{userInfo.nickName}}</text>
+<button type="primary" bindtap="onGetUsrProfile" wx:if="{{showLogOnButton}}" class="button"> 登录 </button>
+<view  wx:else>
+    <view class="afterLogOn">
+        <image  src="{{userInfo.avatarUrl}}" class="userAvatar"/>
+        <text class="userNickName">{{userInfo.nickName}}</text>
+    </view>
+    <van-cell is-link title="我创建的" link-type="navigateTo" url="/pages/asCreator/asCreator"/>
+    <van-cell is-link title="我报名的" link-type="navigateTo" url="/pages/asCandidate/asCandidate"/>
+    <van-cell is-link title="我投票的" link-type="navigateTo" url="/pages/asVoter/asVoter"/>
 </view>
+

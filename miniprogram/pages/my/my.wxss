@@ -1,15 +1,27 @@
 /* pages/my/my.wxss */
+.button{
+    margin-top:50rpx;
+}
 .afterLogOn{
     display: flex;
     flex-flow: column;
+    align-items: center;
+    background-color: rgb(238, 238, 238);
+    width:700rpx;
+    margin:30rpx 0rpx 5rpx 25rpx;
 }
+
 .userAvatar{
+    display: flex;
     border-radius: 50%;
-    margin:0 auto;
+    margin:30rpx 0 10rpx 0;
     width:50px;
     height: 50px;
 }
 
 .userNickName{
     text-align: center;
+    color: coral;
+    margin-bottom:30rpx;
+    font-weight: bolder;
 }

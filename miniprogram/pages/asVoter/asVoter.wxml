@@ -1,0 +1,19 @@
+<!--pages/asVoter/asVoter.wxml-->
+<van-tabs active="{{active}}">
+    <!-- 我参与的文字投票 -->
+    <van-tab title="文字投票">
+        <view wx:for="{{voteText}}" wx:key="index">
+            <van-cell is-link title="{{item._id.title[0]}}" link-type="navigateTo" url="/pages/votetextshare/votetextshare?voteID={{item._id.voteID}}"/>
+        </view>
+    </van-tab>
+
+    <!-- 我参与的评选投票 -->
+    <van-tab title="评选投票">
+        <view wx:for="{{voteSelect}}" wx:key="index">
+            <view class="oneTemplate" bindtap="toVoteSelectDetail" data-voteID="{{item._id.voteID}}">
+                <image src="{{item._id.cover[0]}}" class="cover" mode="widthFix"/>
+                <view class="title">{{item._id.title[0]}}</view>     
+            </view>
+        </view>
+    </van-tab>
+</van-tabs>

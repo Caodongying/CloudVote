@@ -12,7 +12,10 @@
     "pages/voteselectshare/voteselectshare",
     "pages/candidateManage/candidateManage",
     "pages/selectenroll/selectenroll",
-    "pages/candidateDetail/candidateDetail"
+    "pages/candidateDetail/candidateDetail",
+    "pages/asCreator/asCreator",
+    "pages/asCandidate/asCandidate",
+    "pages/asVoter/asVoter"
     
   ], 
 
@@ -47,7 +50,7 @@
   },
 
   "tabBar": {
-    "color": "#00F",
+    "color": "black",
     "selectedColor": "#123",
     "list": [
       {

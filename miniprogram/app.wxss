@@ -10,13 +10,13 @@
 }
 
 .page {
-  background: #f6f6f6;
+  background: #d1d1d1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .voteTextPage {
-  background: #F0F0F0;
+  background: #ffffff;
   padding-bottom: 30px;
 }

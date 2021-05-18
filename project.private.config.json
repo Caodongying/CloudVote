@@ -39,7 +39,7 @@
         {
           "name": "pages/votetextshare/votetextshare",
           "pathName": "pages/votetextshare/votetextshare",
-          "query": "voteID=cbddf0af609a57c107c7ea3a38c44739",
+          "query": "voteID=28ee4e3e60a374a519cc1ebd42d6082d",
           "scene": null
         },
         {
@@ -94,6 +94,24 @@
           "name": "pages/candidateDetail/candidateDetail",
           "pathName": "pages/candidateDetail/candidateDetail",
           "query": "voteID=79550af26099193815bd10d430fac620&candidateID=o1rma5GAgmoqS8eewMD-iG2Y3sh8&index=0",
+          "scene": null
+        },
+        {
+          "name": "pages/asCreator/asCreator",
+          "pathName": "pages/asCreator/asCreator",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/asCandidate/asCandidate",
+          "pathName": "pages/asCandidate/asCandidate",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/asVoter/asVoter",
+          "pathName": "pages/asVoter/asVoter",
+          "query": "",
           "scene": null
         }
       ]

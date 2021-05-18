@@ -4,14 +4,14 @@
     <van-row>
         <van-col>
             <view class="userImage">
-                <van-image src="{{userInfo.avatarUrl}}" round="true" fit="cover" width="40px" height="40px"/>
+                <van-image src="{{userInfo[0].userInfo[0].userInfo.avatarUrl}}" round="true" fit="cover" width="40px" height="40px"/>
             </view>
         </van-col>
         
         <van-col>
             <view class="userText">
                 <van-row>投票发起人</van-row>
-                <van-row>{{userInfo.nickName}}</van-row>
+                <van-row>{{userInfo[0].userInfo[0].userInfo.nickName}}</van-row>
             </view>
         </van-col>
         
@@ -49,7 +49,8 @@
         </view>
     </van-checkbox-group>
 
-    <van-button class="button1" color="pink" form-type="submit" size="small"> 确认投票</van-button>
+    <van-button wx:if="{{isFirst}}" class="button1" color="pink" form-type="submit" size="small"> 确认投票</van-button>
+    <van-button wx:else class="button1" color="pink"  size="small"> 您已投票</van-button>
     <van-button class="button2" color="pink" size="small" bind:click="viewRankList"> 查看排行榜</van-button>
 
     <view wx:if="{{showRankList}}">

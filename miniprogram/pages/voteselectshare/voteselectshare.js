@@ -11,21 +11,64 @@ Page({
     active1:0,
     active2:0,
     hasEnrolled:false,//标记用户是否已经报名
-    candidateInfo:[]//所有参赛者
+    candidateInfo:[],//所有参赛者
+    voteNumArr:[],//每个参赛者的投票数
+    orderedRankList:"",//排行榜
+    orderedRankListInfo:[],//排行榜成员的名字和头像
+    openid:0
   },
 
   onLoad(options) {
     this.setData({
       voteID:options.voteID
     })
-    this.getVoteRecord(this.setStatus)
-    this.getCandidateNum()
-    this.getCandidate()
+    
+    this.getOpenID(this.getVoteRecord)
+    // this.getVoteRecord(this.setStatus)
+    this.getCandidateNum(this.getCandidate)
     this.getVoteNum()
   },
 
+  getOpenID(callback) {
+    let that=this
+    var _openid="";
+    wx.cloud.callFunction({
+      name: 'getOpenid',
+      success(res) {
+        that.setData({
+          openid:res.result.openid
+        })
+        if(typeof callback != "undefined")
+          callback();
+      },
+      fail(res) {
+        console.log('云函数获取失败', res)
+      }
+    })
+  },
+
+  orderedRankListInfo(){
+    var _orderedRankListInfo=[]
+    for(var j=0;j<this.data.orderedRankList.length;j++){ //遍历排行榜数组
+      for(var i=0;i<this.data.candidateInfo.length;i++){ //遍历候选人信息
+        // console.log("循环执行")
+        if(this.data.orderedRankList[j]._id==this.data.candidateInfo[i]._openid){//找到了
+          _orderedRankListInfo.push({
+            name:this.data.candidateInfo[i].candidateRecord.name,
+            avatar:this.data.candidateInfo[i].candidateRecord.candidateAvatar
+          })
+          // console.log("ppp",_orderedRankListInfo)
+          break
+        }
+      }
+    }
+    this.setData({
+      orderedRankListInfo:_orderedRankListInfo
+    })
+  },
+
   //获取参赛总人数
-  getCandidateNum(){
+  getCandidateNum(callback){
     let that=this
     const db=wx.cloud.database()
     db.collection('candidate').aggregate()
@@ -40,6 +83,8 @@ Page({
             candidateNum:res.list[0].candidateNum
           })
         }
+        if(typeof callback != "undefined")
+          callback();// 执行调用函数
       })
       .catch(err => console.error(err))
   },
@@ -58,13 +103,102 @@ Page({
       that.setData({
         candidateInfo:res.data
       })
+      that.getVoteNumArr()
+      that.getRankList(that.orderedRankListInfo)
     })
     .catch(err => console.error(err))
   },
 
-  //获取每个参赛选手的票数
+  //获取总票数
   getVoteNum(){
+    let that=this
+    const db=wx.cloud.database()
+    db.collection('voteSelectInfo').aggregate()
+      .match({
+        voteID:that.data.voteID
+      })
+      .count('voteNum')
+      .end()
+      .then(res=>{
+        if(res.list.length!=0){
+          that.setData({
+            voteNum:res.list[0].voteNum
+          })
+        }
+      })
+      .catch(err => console.error(err))
+  },
 
+  //获取每个参赛选手的票数
+async getVoteNumArr(){
+    //循环查询数据库
+    var _voteNumArr=[]
+    console.log("执行了getVoteNumArr")
+    let that=this
+    for(var i=0;i<this.data.candidateNum;i++){
+      const db=wx.cloud.database()
+      await db.collection('voteSelectInfo').aggregate()
+        .match({
+          voteID:that.data.voteID,
+          candidateID:that.data.candidateInfo[i]._openid
+        }) 
+        .count('voteNum')
+        .end()
+        .then(res=>{
+          if(res.list.length!=0){
+            _voteNumArr.push(res.list[0].voteNum)    
+            // that.setData({
+            //   voteNumArr:_voteNumArr
+            // })         
+          }
+          else{           
+            _voteNumArr.push(0)
+            // that.setData({
+            //   voteNumArr:_voteNumArr
+            // }) 
+          }
+        })
+        .catch(err => console.error(err))
+    } 
+
+    setTimeout(function(){
+      // console.log("投票信息数组，",_voteNumArr)
+      that.setData({
+        voteNumArr:_voteNumArr
+      }) 
+    },1000) 
+    
+
+  },
+
+  //获取排行榜
+  getRankList(callback){
+    let that=this
+    const db=wx.cloud.database()
+    const $=db.command.aggregate
+    db.collection('voteSelectInfo')
+      .aggregate()
+      .match({
+        voteID:that.data.voteID
+      })
+      .group({
+        _id:'$candidateID',
+        sumVotes:$.sum(1)
+      })
+      .sort({
+        sumVotes:-1
+      })
+      .end()
+      .then(res => {
+        // console.log(res)
+        this.setData({
+          orderedRankList:res.list
+        })
+        console.log("排行榜查询结果",that.data.orderedRankList)
+        if(typeof callback != "undefined")
+          callback();// 执行调用函数
+      })
+      .catch(err => console.error(err))
   },
 
   getVoteRecord(callback){
@@ -76,6 +210,7 @@ Page({
         this.setData({
           voteRecord:res.data.voteRecord
         })
+        that.setStatus()
         // console.log("获取的投票信息",that.data.voteRecord)
         if(typeof callback != "undefined")
           callback();// 执行调用函数
@@ -86,6 +221,25 @@ Page({
   },
 
   setStatus(){
+     //判断是否已经报名过
+     const db=wx.cloud.database()
+     let that=this
+     db.collection('candidate').where({
+       _openid:that.data.openid,
+       voteID:that.data.voteID
+     })
+     .get( )
+     .then(res=>{
+       if(res.data.length>0){//已经投票
+        console.log("哭了",res)
+         that.setData({
+           hasEnrolled:true,
+         })
+         
+       }
+     })
+     .catch(console.error)
+
     let enrollDate=this.data.voteRecord.dateBegin1 //报名开始日期
     let enrollTime=this.data.voteRecord.timeBegin1 //报名开始时间
     let voteDate=this.data.voteRecord.dateBegin//投票开始时间
@@ -170,22 +324,7 @@ Page({
 
     }
 
-    //判断是否已经报名过
-    const db=wx.cloud.database()
-    db.collection('candidate').where({
-      _openid:app.globalData.openid,
-      voteID:this.data.voteID
-    })
-    .get( )
-    .then(res=>{
-      if(res.data.length>0){//已经投票
-        this.setData({
-          hasEnrolled:true,
-        })
-        
-      }
-    })
-    .catch(console.error)
+   
   },
 
 
@@ -217,7 +356,28 @@ Page({
 
   //点击“查看报名信息”
   onCheckEnrollInfo(){
-    
+    let that=this
+    var candidateID=this.data.openid
+    var index=-1
+    for(var i=0;i<this.data.candidateInfo.length;i++){
+      if(this.data.candidateInfo[i]._openid==candidateID){
+        index=i
+        break
+      }
+    }
+    var candidateInfo=this.data.candidateInfo[index]
+    //还要传递票数与排名
+    var voteNum=this.data.voteNumArr[index]
+    var rankNum="—"
+    for(var i=0;i<this.data.orderedRankList.length;i++){
+      if(candidateID==this.data.orderedRankList[i]._id){
+        rankNum=i+1
+        break
+      }
+    }
+    wx.navigateTo({
+      url:"/pages/candidateDetail/candidateDetail?voteID="+that.data.voteID+"&candidateID="+candidateID+"&index="+index+"&voteNum="+voteNum+"&rankNum="+rankNum
+    }) 
   },
 
   //查看选手信息
@@ -226,8 +386,17 @@ Page({
     var index=e.currentTarget.dataset.index
     var candidateInfo=this.data.candidateInfo[index]
     var candidateID=candidateInfo._openid
+    //还要传递票数与排名
+    var voteNum=this.data.voteNumArr[index]
+    var rankNum="—"
+    for(var i=0;i<this.data.orderedRankList.length;i++){
+      if(candidateID==this.data.orderedRankList[i]._id){
+        rankNum=i+1
+        break
+      }
+    }
     wx.navigateTo({
-      url:"/pages/candidateDetail/candidateDetail?voteID="+that.data.voteID+"&candidateID="+candidateID+"&index="+index
+      url:"/pages/candidateDetail/candidateDetail?voteID="+that.data.voteID+"&candidateID="+candidateID+"&index="+index+"&voteNum="+voteNum+"&rankNum="+rankNum
     }) 
   }
 

@@ -21,16 +21,16 @@
   <!-- 投票按钮 -->
   <view class="voteButton">
     <view class="voteButton_item">
-      <image class="voteButton_img" src="/images/voteTextDesc.jpg"></image>
+      <image class="voteButton_img" src="/images/voteTextDesc.png"></image>
       <view>
-        <button bindtap="voteText" >文字投票</button>
+        <button bindtap="voteText" >创建</button>
       </view>
     </view>
 
     <view class="voteButton_item">
-      <image class="voteButton_img" src="/images/voteTextDesc.jpg"></image>
+      <image class="voteButton_img" src="/images/voteSelectDesc.png"></image>
       <view>
-        <button bindtap="voteSelect" >评选投票</button>
+        <button bindtap="voteSelect" >创建</button>
       </view>
     </view>
 

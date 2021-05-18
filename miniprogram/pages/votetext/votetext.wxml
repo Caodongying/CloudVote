@@ -26,7 +26,7 @@
             </view> -->
         </view>
 
-        <view>
+        <view class="_add">
             <image class="plusImg" bindtap="addOption" src="/images/plus.jpg" />
             <text bindtap="addOption">添加选项</text>
         </view>
@@ -34,35 +34,35 @@
 
     <!-- 投票规则 -->
     <van-cell-group title="投票规则">
+        <view class="pickers">
+            <view class="rowFlex">    
+                <text >开始日期  ：</text>
+                <picker mode="date" name="dateBegin" value="{{voteRecord.dateBegin}}" start="{{voteRecord.startDate}}" bindchange="bindBeginDateChange">
+                    <view class="currentDT">{{voteRecord.dateBegin}}</view>
+                </picker>   
+            </view>
 
-        <view class="rowFlex">    
-            <text >开始日期  ：</text>
-            <picker mode="date" name="dateBegin" value="{{voteRecord.dateBegin}}" start="{{voteRecord.startDate}}" bindchange="bindBeginDateChange">
-                <view class="currentDT">{{voteRecord.dateBegin}}</view>
-            </picker>   
+            <view class="rowFlex">
+                <text >开始时间  ：</text>   
+                <picker mode="time" name="timeBegin" value="{{voteRecord.timeBegin}}" start="{{voteRecord.startTime}}"  bindchange="bindBeginTimeChange">
+                    <view class="currentDT">{{voteRecord.timeBegin}}</view>
+                </picker>
+            </view>
+
+            <view class="rowFlex">    
+                <text >结束日期  ：</text>
+                <picker mode="date" name="dateEnd" value="{{voteRecord.dateEnd}}" start="{{voteRecord._startDate}}"  bindchange="bindEndDateChange">
+                    <view class="currentDT">{{voteRecord.dateEnd}}</view>
+                </picker>   
+            </view>
+
+            <view class="rowFlex">
+                <text >结束时间  ：</text>   
+                <picker mode="time" name="timeEnd" value="{{voteRecord.timeEnd}}" start="{{voteRecord._startTime}}"  bindchange="bindEndTimeChange">
+                    <view class="currentDT">{{voteRecord.timeEnd}}</view>
+                </picker>
+            </view>
         </view>
-
-        <view class="rowFlex">
-            <text >开始时间  ：</text>   
-            <picker mode="time" name="timeBegin" value="{{voteRecord.timeBegin}}" start="{{voteRecord.startTime}}"  bindchange="bindBeginTimeChange">
-                <view class="currentDT">{{voteRecord.timeBegin}}</view>
-            </picker>
-        </view>
-
-        <view class="rowFlex">    
-            <text >结束日期  ：</text>
-            <picker mode="date" name="dateEnd" value="{{voteRecord.dateEnd}}" start="{{voteRecord._startDate}}"  bindchange="bindEndDateChange">
-                <view class="currentDT">{{voteRecord.dateEnd}}</view>
-            </picker>   
-        </view>
-
-        <view class="rowFlex">
-            <text >结束时间  ：</text>   
-            <picker mode="time" name="timeEnd" value="{{voteRecord.timeEnd}}" start="{{voteRecord._startTime}}"  bindchange="bindEndTimeChange">
-                <view class="currentDT">{{voteRecord.timeEnd}}</view>
-            </picker>
-        </view>
-
         <!-- 默认每人对每一选项最多只能投一票，仅需设置是否可以投多个选项-->            
         <van-cell title="是否多选"  >
             <van-switch checked="{{voteRecord.isMultiVote}}" bind:change="setMultiVote" size="20" />

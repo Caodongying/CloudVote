@@ -12,7 +12,7 @@ App({
         traceUser: true,
       })
     }
-    this.getOpenID()
+    this.getOpenID(this.getUserInfo)
   },
 
   globalData: {
@@ -20,9 +20,24 @@ App({
     openid: null,
   }, 
 
+  getUserInfo(){
+    var app=this
+    wx.cloud.database().collection('user')
+      .where({
+        _openid:this.globalData.openid
+      })
+      .get()
+      .then(res=>{
+        if(res.data.length!=0){       
+            this.globalData.userInfo=res.data[0].userInfo
+            // console.log(this.globalData.userInfo)
+        }
+      })
+      .catch(console.error)
+  },
   //wx.getUserInfo不能获取微信用户的openid。 
   // 获取用户openid
-  getOpenID() {
+  getOpenID(callback) {
     var app = this;
    var _openid="";
    wx.cloud.callFunction({
@@ -32,6 +47,8 @@ App({
         console.log('云函数获取openid成功', res.result.openid)
         var openid = res.result.openid;
         app.globalData.openid=openid;
+        if(typeof callback != "undefined")
+          callback();// 执行调用函数
       },
       fail(res) {
         console.log('云函数获取失败', res)

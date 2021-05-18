@@ -12,7 +12,7 @@
 .status{
     font-size: small;
     color:grey;
-    margin:15px 10px 0 100px
+    margin:15px 10rpx 0 200rpx
 }
 
 .cellHead{

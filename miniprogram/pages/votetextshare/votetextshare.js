@@ -27,21 +27,38 @@ Page({
     // app.globalData.userInfo= wx.getStorageSync('userInfo',this.data.userInfo)
     this.setData({
       voteID:options.voteID,
-      userInfo:app.globalData.userInfo
     })
 
     // console.log(this.data.userInfo)
     // console.log(this.data.userInfo.avatarUrl)
+    this.getOpenID(this.judgeIsFirst)
     this.getVoteRecord(this.setStatus)
-    this.getOpenID()
-    this.judgeIsFirst()
+    this.getUserInfo()
     this.getRankList()
+  },
+
+  getUserInfo(){
+    let that=this
+    wx.cloud.callFunction({
+      name:'getUserInfo',
+      data:{
+        voteID:that.data.voteID
+      }
+    })
+    .then(res=>{
+      that.setData({
+        userInfo:res.result
+      })
+      console.log("qqqq",res.result)
+    })
+    .catch(console.error)
+
   },
 
   //其实在app.js中已定义getOpenID，但是由于js异步的问题，无法在then函数中直接返回值
   //相关的解决方法是回调/async/返回promise对象。我暂时没学懂（其实没学，看了眼不是很懂就跳过了，要写不完了！）
   //讲解链接：https://www.wenyuanblog.com/blogs/javascript-how-to-return-value-in-promise.html
-  getOpenID() {
+  getOpenID(callback) {
     let that=this
     var _openid="";
     wx.cloud.callFunction({
@@ -49,7 +66,9 @@ Page({
       success(res) {
         console.log(res)
         console.log('云函数获取openid成功', res.result.openid)
-        that.openid= res.result.openid;
+        that.data.openid= res.result.openid;
+        if(typeof callback != "undefined")
+          callback();// 执行调用函数
       },
       fail(res) {
         console.log('云函数获取失败', res)
@@ -85,11 +104,12 @@ Page({
 
   //判断是否是第一次投票，需要借助数据库
   judgeIsFirst(){
+    let that=this
     const db=wx.cloud.database()
     // const _=db.command
     db.collection('voteTextInfo').where({
-      openid:this.data.openid,
-      voteID:this.data.voteID
+      openid:that.data.openid,
+      voteID:that.data.voteID
     })
     .get( )
     .then(res=>{
@@ -127,26 +147,37 @@ Page({
     let currentTime=app.getCurrentTime()
     let currentDate=app.getCurrentDate()
     let voteRecord=this.data.voteRecord
-    if(currentDate==voteRecord.dateBegin){ //日期已到
-      if((currentTime>=voteRecord.timeBegin)&&(currentTime<=voteRecord.timeEnd)){
+    var date2=new Date(currentDate)
+    var date1=new Date(voteRecord.dateBegin)
+    var date3=new Date(voteRecord.dateEnd)
+
+    if(date2<date1){ //现在还没有到投票开始那天
+      this.setData({
+        voteStatus:"投票还未开始"
+      })
+    }
+    else if(date2==date1){//已经到了投票那天
+      if(currentTime<voteRecord.timeBegin){//时间还没到
         this.setData({
-          voteStatus:"投票进行中"
-        })
-      }
-      else if(currentTime>=voteRecord.timeEnd){ //同一天，时间已过
-        this.setData({
-          voteStatus:"投票已结束"
+          voteStatus:"投票还未开始"
         })
       }
     }
-    else if(currentDate>=voteRecord.dateEnd){ //日期已过
+    else if(date2>date3){//现在已经过了投票结束那天
       this.setData({
-        voteStatus:"投票已结束"
+        voteStatus:"投票已经结束"
       })
+    }
+    else if(date2==date3){//已经到了投票结束那天
+      if(currentTime>voteRecord.timeEnd){//时间已经过了投票结束时间
+        this.setData({
+          voteStatus:"投票已经结束"
+        })
+      }
     }
     else{
       this.setData({
-        voteStatus:"投票还未开始"
+        voteStatus:"投票正在进行中"
       })
     }
 
@@ -270,8 +301,8 @@ Page({
     for(var i=0;i<this.data.optionVoted.length;i++){
       db.add({
         data:{
-          openid:this.data.openid,
-          voteID:this.data.voteID,
+          openid:that.data.openid,
+          voteID:that.data.voteID,
           optionIndex:i
         }
       })

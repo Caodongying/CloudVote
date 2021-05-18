@@ -44,6 +44,14 @@ Page({
         })
         user.openid = app.globalData.openid;
         app.globalData.userInfo=this.data.userInfo
+          wx.cloud.database().collection('user')
+          .add({
+            data:{
+              userInfo:app.globalData.userInfo
+            }
+          })
+          .then(console.log("用户信息上传成功"))
+          .catch()
         // this.delAllVoteTextInfo()
       },
       fail: res => {

@@ -1,0 +1,20 @@
+<!--pages/asCreator/asCreator.wxml-->
+<van-tabs active="{{active}}">
+
+    <!-- 我创建的文字投票 -->
+    <van-tab title="文字投票">
+        <view wx:for="{{voteText}}" wx:if="index">
+            <van-cell is-link title="{{item.voteRecord.title}}" link-type="navigateTo" url="/pages/aftervotetext/aftervotetext?voteID={{item._id}}"/>
+        </view>
+    </van-tab>
+
+    <!-- 我创建的评选投票 -->
+    <van-tab title="评选投票">
+        <view wx:for="{{voteSelect}}" wx:if="index">
+            <view class="oneTemplate" bindtap="toVoteSelectDetail" data-voteID="{{item._id}}">
+                <image src="{{item.voteRecord.cover}}" class="cover" mode="widthFix"/>
+                <view class="title">{{item.voteRecord.title}}</view>     
+            </view>
+        </view>
+    </van-tab>
+</van-tabs>

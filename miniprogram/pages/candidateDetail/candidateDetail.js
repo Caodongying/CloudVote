@@ -7,6 +7,8 @@ Page({
     candidateInfo:"",
     voteRecord:"",
     candidateIndex:0,//参赛选手编号
+    rankNum:0,
+    voteNum:0
   },
 
  
@@ -15,6 +17,8 @@ Page({
     this.setData({
       voteID:options.voteID,
       candidateID:options.candidateID,
+      rankNum:options.rankNum,
+      voteNum:options.voteNum,
       candidateIndex:parseInt(options.index)+1
     })
     this.getCandidate()
@@ -25,7 +29,8 @@ Page({
     let that=this
     wx.cloud.database().collection('candidate')
       .where({
-        _openid:that.data.candidateID
+        _openid:that.data.candidateID,
+        voteID:that.data.voteID
       })
       .get()
       .then(res=>{

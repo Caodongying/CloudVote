@@ -162,5 +162,11 @@ Page({
     wx.navigateTo({
       url:'/pages/voteSelectRank/voteSelectRank?voteID='+this.data.voteID
     })
+  },
+
+  showPage(){
+    wx.navigateTo({
+      url:'/pages/voteselectshare/voteselectshare?voteID='+this.data.voteID
+    })
   }
 })

@@ -22,8 +22,9 @@
         </view>
     </view>
 
-    <van-button wx:if="{{!hasEnrolled}}" class="button" color="coral" size="small" bind:click="onEnroll"> 我要报名</van-button>
-    <van-button wx:else class="button" color="coral" size="small" bind:click="onCheckEnrollInfo"> 查看报名信息</van-button>
+    <van-button  wx:if="{{hasEnrolled}}"  class="button" color="coral" size="small" bind:click="onCheckEnrollInfo"> 查看我的报名信息</van-button>
+    <van-button wx:else class="button" color="coral" size="small" bind:click="onEnroll"> 我要报名</van-button>
+    
 
     <view class="searchRoot">
         <input class="searchInput" placeholder="搜索编号或选手名称" bindconfirm="goSearch" confirm-type="search" bindinput="goSearchKey"/>
@@ -36,14 +37,24 @@
             <view wx:for="{{candidateInfo}}" wx:key="index" class="oneCandidate">
                 <van-image class="picture-item" src="{{item.candidateRecord.candidateAvatar}}" bind:tap="candidateDetail" data-index="{{index}}" fit="cover" width="290rpx" height="290rpx"/> 
                 <text class="name" decode="{{true}}">{{index+1}}号&nbsp;&nbsp;&nbsp;{{item.candidateRecord.name}}</text>
-                <text class="voteNum">5票</text>
+                <text class="voteNum">{{voteNumArr[index]}}票</text>
             </view>
         </view>
     </van-tab>
-    <van-tab title="排行榜">
-        
 
+    <van-tab title="排行榜">
+        <text class="rankListNote">本排行榜不显示0票选项</text>
+        <view >
+            <!-- <image class="rankImage" src="/images/rankListHead.jpg"/> -->
+            <view wx:for="{{orderedRankList}}" wx:key="index" class="rank-item">
+                <text class="rank">{{index+1}}</text>
+                <van-image src="{{orderedRankListInfo[index].avatar}}" class="rankUserImage" round="true" fit="cover" width="40px" height="40px"/>
+                <text class="content">{{orderedRankListInfo[index].name}}</text>
+                <text class="num">{{item.sumVotes}}票</text>
+            </view>
+        </view>
     </van-tab>
+
     </van-tabs>
   </van-tab>
 

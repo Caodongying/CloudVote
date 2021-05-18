@@ -130,3 +130,50 @@
     color:rgb(94, 94, 94);
     margin:2px 0 4px 0;
 }
+
+.rank-item{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin-bottom: 25rpx;
+}
+.rankListNote{
+    font-weight: bolder;
+    font-size: 14px;
+    color:red;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    margin: 8px 0px;
+}
+
+.rank{
+    margin: 0px 10px 0px 20rpx;
+    font-weight: bolder;
+}
+
+.rankUserImage{
+    margin:0px 30rpx 0 0;
+}
+
+.content{
+    /* margin-right: 30rpx; */
+    width:200rpx;
+    display: inline-block;
+    /* 解决设置inline-block后与行内其他元素不在同一水平线的问题 */
+    vertical-align:top;
+    white-space:nowrap;
+    /* 超出隐藏 */
+    overflow:hidden;
+    /*超出显示为省略号*/
+    text-overflow:ellipsis;
+}
+
+
+.num{
+    position: absolute;
+    right:40rpx;
+    text-align:right
+}
+
+

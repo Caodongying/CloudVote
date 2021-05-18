@@ -1,0 +1,7 @@
+<!--pages/asCandidate/asCandidate.wxml-->
+<view wx:for="{{voteSelect}}" wx:key="index">
+    <view class="oneTemplate" bindtap="toVoteSelectDetail" data-voteID="{{item.voteID}}">
+        <image src="{{item.voteInfo[0].voteRecord.cover}}" class="cover" mode="widthFix"/>
+        <view class="title">{{item.voteInfo[0].voteRecord.title}}</view>     
+    </view>
+</view>

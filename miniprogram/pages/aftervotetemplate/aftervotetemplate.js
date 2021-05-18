@@ -96,6 +96,9 @@ Page({
       confirmText:'确定',
       success (res) {
         if (res.confirm) { //确定删除
+          wx.showLoading({
+            title: '正在删除',
+          })
           console.log('确定执行删除操作')
           wx.cloud.callFunction({
             name:'voteDelete',
@@ -109,8 +112,9 @@ Page({
             console.log(res)
             var deleteResult=res.result.deleteResult
             //删除成功
-            if(deleteResult=="2"){
+            if(deleteResult=="4"){
               //弹窗未显示
+              wx.hideLoading()
               wx.showToast({
                 title:'删除成功！',
                 duration:2000

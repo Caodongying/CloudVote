@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
   var candidateRecord=[]
   var deleteResult=0
   console.log("传过来的两个信息",voteID,openid)
-  var promiseArr=[]
+  // var promiseArr=[]
    //删除涉及的数据库表：candidate/voteSelectInfo
    //先删除云存储中的头像、图片、视频
   await cloud.database().collection('candidate')
@@ -79,5 +79,7 @@ exports.main = async (event, context) => {
     })
     .catch(console.error)
 
-    return deleteResult
+    return{
+      deleteResult:deleteResult
+    }
 }

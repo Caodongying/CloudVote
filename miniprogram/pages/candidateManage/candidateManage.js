@@ -52,23 +52,23 @@ Page({
           })
           .then(res=>{
             deleteResult=res.result.deleteResult
-            // console.log("删除结果",res.result.deleteResult)
-            // if(deleteResult==2){
+            console.log("删除结果",res.result.deleteResult)
+            if(deleteResult==2){
               wx.hideLoading()
               wx.showToast({
                 title:'删除成功！',
                 duration:1000
               })
               that.getCandidate()
-            // }
-            // else{
-            //   wx.hideLoading()
-            //   wx.showToast({
-            //     title:'删除失败！',
-            //     duration:2000,
-            //     icon:"none"
-            //   })
-            // }
+            }
+            else{
+              wx.hideLoading()
+              wx.showToast({
+                title:'删除失败！',
+                duration:2000,
+                icon:"none"
+              })
+            }
           })
           .catch(console.error)
         }

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/square/square",
     "pages/my/my",
     "pages/votetext/votetext",
     "pages/aftervotetext/aftervotetext",
@@ -46,7 +47,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "极简投票",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh":true
   },
 
   "tabBar": {
@@ -55,10 +57,17 @@
     "list": [
       {
       "pagePath": "pages/index/index",
-      "text": "投票",
+      "text": "创建投票",
       "iconPath": "/images/tabBarPics/strawberry.png",
       "selectedIconPath": "images/tabBarPics/strawberry-1.png"
        },
+      {
+      "pagePath": "pages/square/square",
+      "text": "活动广场",
+      "iconPath": "/images/tabBarPics/2.png",
+      "selectedIconPath": "images/tabBarPics/2-1.png"
+       },
+
        {
         "pagePath": "pages/my/my",
         "text": "我的",

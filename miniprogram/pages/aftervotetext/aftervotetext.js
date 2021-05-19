@@ -57,7 +57,6 @@ Page({
       })
       .end()
       .then(res => {
-        // console.log(res)
         this.setData({
           orderedRankList:res.list
         })

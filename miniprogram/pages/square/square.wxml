@@ -1,5 +1,5 @@
 <!--pages/square/square.wxml-->
-<view wx:for="{{voteSelect}}" wx:if="index">
+<view wx:for="{{voteSelect}}" wx:key="index">
     <view class="oneTemplate" bindtap="toVoteSelectDetail" data-voteID="{{item._id}}">
         <image src="{{item.voteRecord.cover}}" class="cover" mode="widthFix"/>
         <view class="title">{{item.voteRecord.title}}</view>     

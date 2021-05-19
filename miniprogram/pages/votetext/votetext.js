@@ -30,7 +30,6 @@ Page({
       isMultiVote:false, //是否为多选投票*
       minVoteNum:1,
       maxVoteNum:"1",
-      //isNumVisible:false, //投票数量是否可见*
       isRankVisible:false, //排行榜是否可见*
       isAnonymous:false //是否匿名*
     },
@@ -58,10 +57,7 @@ Page({
       description:{
         required:true
       },
-      // voteOption:{
-      //   required:true
-      // },
-        
+       
       dateBegin:{
         required:true,
         date:true
@@ -86,9 +82,6 @@ Page({
       description:{
         required:'请填写活动介绍'
       },
-      // voteOption:{
-      //   required:'请将选项填写完整，或移除空选项'
-      // },
       dateBegin:{
         required:'请选择开始日期',
         date:'请选择开始日期'
@@ -192,7 +185,6 @@ Page({
         ['voteRecord.startTime']:currentTime
       })
     }
-    console.log("结束日期："+ this.data.voteRecord.dateEnd+"开始日期"+this.data.voteRecord.dateBegin)
     var date1 = new Date(this.data.voteRecord.dateEnd)
     var date2 = new Date(this.data.voteRecord.dateBegin)
     console.log(date1<date2)
@@ -208,8 +200,6 @@ Page({
         ['voteRecord._startDate']:e.detail.value//结束日期不得晚于开始日期
       })
     }
-
-
     console.log(this.data.voteRecord.startDate)
   },
 
@@ -221,17 +211,14 @@ Page({
       })
       return
     }
-
     this.setData({
       ['voteRecord.timeBegin']:e.detail.value,
       isSetTimeBegin:true
     }) 
-
     this.judgeTime()
   },
 
   bindEndDateChange(e){ //结束日期
-
     this.setData({
       ['voteRecord.dateEnd']:e.detail.value,
       isSetDateEnd:true,
@@ -246,13 +233,11 @@ Page({
 
   judgeTime(){
     if(this.data.voteRecord.dateEnd==this.data.voteRecord.dateBegin){ //开始日期和结束日期一样，则结束时间不能晚于开始时间
-      
       if(this.data.voteRecord.isSetTimeEnd && (this.data.voteRecord.timeEnd<this.data.voteRecord.timeBegin)){ //已设置结束时间
         this.setData({
           ['voteRecord.timeEnd']:"请选择"
         })
       }
-
       var temp=this.data.voteRecord.timeBegin.split(":")
       temp[1]=parseInt(temp[1])+1
       temp[1].toString()

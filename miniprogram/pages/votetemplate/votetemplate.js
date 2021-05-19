@@ -63,7 +63,6 @@ Page({
       ['voteRecord.startDate']:date,
       ['voteRecord._startDate']:date,
       submitType:options.submitType,
-      voteID:options.voteID
     })
     if(this.data.submitType==1){
       this.setData({
@@ -72,6 +71,9 @@ Page({
       this.getTemplate()
     }
     else if(this.data.submitType==2){
+      this.setData({
+        voteID:options.voteID
+      })
       wx.cloud.database().collection('voteSelect')
       .doc(this.data.voteID)
       .get()

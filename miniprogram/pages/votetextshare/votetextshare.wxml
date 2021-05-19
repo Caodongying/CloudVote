@@ -21,6 +21,7 @@
     </van-row>
 
     <van-cell title="投票名称" value="{{voteRecord.title}}"/>
+    <van-cell title="投票简介" value="{{voteRecord.description}}"/>
 
     <view class="cellHead">投票规则</view>
 
